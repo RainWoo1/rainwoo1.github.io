@@ -1,4 +1,4 @@
-# rainwoo1.github.io
+[//]: # (# rainwoo1.github.io)
 
 # Hi! My name is Jimin Woo:smile:
 ## FullStack Engineer and Computer Engineering Student at the University of Toronto

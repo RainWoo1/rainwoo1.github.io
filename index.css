@@ -1,0 +1,73 @@
+@import url('https://rsms.me/inter/inter.css');
+@supports (font-variation-settings: normal) {
+    html { font-family: 'Inter var', sans-serif; }
+}
+
+:root {
+    --bg-page1: #f9fafb;
+}
+
+html, body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background: var(--bg-page1);
+    overflow-x: hidden;
+}
+/*div {*/
+/*    margin: 0;*/
+/*}*/
+
+h3:hover {
+    color: #696969;
+    cursor: pointer;
+}
+.position-absolute {
+    position: absolute;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    background-color: #000000;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    display: inline-block;
+
+    text-align: left;
+    line-height: 29px;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 24px;
+    color: #f9fafb;
+}
+
+.ellipse {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 1508px;
+    top: 349px;
+}
+.ellipse1 {
+    background-color: #FF7171;
+}
+.ellipse2 {
+    background-color: #FFB0B0;
+}
+.ellipse3 {
+    background-color: #FFD0D0;
+}
+.ellipse4 {
+    background-color: #FFE7E7;
+}
+.shadow {
+    box-shadow: 0 0 16px rgb(221,221,221);
+    -webkit-box-shadow: 0 0 16px rgb(221,221,221);
+    -moz-box-shadow: 0 0 16px rgb(221,221,221);
+}
+
