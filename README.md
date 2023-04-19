@@ -1,7 +1,7 @@
 [//]: # (# rainwoo1.github.io)
 
-# Hi! My name is Jimin Woo:smile:
-## FullStack Engineer and Computer Engineering Student at the University of Toronto
+# Hi! My name is Jimin Woo
+## Computer Engineering Student at the University of Toronto
 
 I've been learning to code for a little over one year now.
 I started with python, before moving into front-end development with html, css, and javascript.
