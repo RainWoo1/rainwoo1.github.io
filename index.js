@@ -1,5 +1,13 @@
-function loading() {
-    location.reload();
+var click1 = document.getElementById("click1")
+click1.onclick = function () {
+    var location = document.querySelector("#move1").offsetTop
+    window.scrollTo({top:location, behavior:'smooth'});
+}
+
+var click2 = document.getElementById("click2")
+click2.onclick = function () {
+    var location = document.querySelector("#move2").offsetTop
+    window.scrollTo({top:location, behavior:'smooth'});
 }
 
 /*/!* modal open *!/
