@@ -1,545 +1,815 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jimin Woo — Portfolio</title>
+    <meta
+      name="description"
+      content="Full-stack developer building playful, reliable, user-first systems."
+    />
+    <!-- Tailwind (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f9fafb">
-    <meta name="description" content="Jimin Woo's personal website">
-    <title>Jimin Woo's personal website</title>
+    <style>
+      /* ==== THEME (clean light / deep dark) ==== */
+      :root {
+        --cyan: #00e5ff;
+        --magenta: #ff3d7d;
+        --yellow: #ffd166;
+        /* Light palette (restored) */
+        --bg: #ffffff;
+        --panel: #f7f7f8;
+        --grid-dot: rgba(0, 0, 0, 0.06);
+        --text: #0b0b0c;
+        --sub: #505862;
+        --border: rgba(0, 0, 0, 0.12);
+      }
+      .dark {
+        /* Dark palette (unchanged toy-tech) */
+        --bg: #0b0b0c;
+        --panel: #111316;
+        --grid-dot: rgba(255, 255, 255, 0.08);
+        --text: #f7f8fa;
+        --sub: #9aa3af;
+        --border: rgba(255, 255, 255, 0.12);
+      }
+      /* Utilities bound to theme vars */
+      .bg-app {
+        background-color: var(--bg);
+      }
+      .bg-surface {
+        background-color: var(--panel);
+      }
+      .text-main {
+        color: var(--text);
+      }
+      .text-sub {
+        color: var(--sub);
+      }
+      .border-soft {
+        border-color: var(--border);
+      }
+      .grid-bg {
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          var(--grid-dot) 1px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+      }
 
-    <!--CSS-->
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="modal.css">
+      /* Toy-tech micro-interactions */
+      .img-16x9 {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        overflow: hidden;
+        border-radius: 16px;
+      }
+      .img-16x9 > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .toy-card {
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .toy-card:hover {
+        transform: translateY(-4px) rotate(0.4deg);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+      }
+      a.inline-link {
+        box-shadow: inset 0 -4px 0 0 rgba(0, 229, 255, 0.25);
+        transition: box-shadow 0.18s ease;
+      }
+      a.inline-link:hover {
+        box-shadow: inset 0 -10px 0 0 rgba(0, 229, 255, 0.18);
+      }
 
-</head>
+      /* Modal: rely on x-show only (fix freeze) */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 60;
+      }
 
-<body>
+      /* === Alternating Timeline (center spine + left/right cards) === */
+      .timeline {
+        position: relative;
+        margin: 0 auto;
+        max-width: 1100px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: rgba(128, 128, 128, 0.25); /* subtle spine */
+        transform: translateX(-50%);
+      }
+      .timeline-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin: 32px 0;
+      }
+      .timeline-node {
+        position: absolute;
+        left: 50%;
+        top: 8px;
+        transform: translateX(-50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        background: var(--cyan, #00e5ff);
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+        z-index: 2;
+      }
+      .timeline-card {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        background: rgba(247, 247, 248, 1);
+        border-radius: 16px;
+        padding: 16px;
+      }
+      .dark .timeline-card {
+        border-color: rgba(255, 255, 255, 0.12);
+        background: #111316;
+      }
+      .timeline-meta {
+        font-size: 12px;
+        opacity: 0.8;
+      }
 
-    <div id="container">
-        <div class="ball" id="click1">
-            <div class="translateX">
-                <div class="translateY">
-                    <div class="rotateZ">
-                        <div class="material" style="background: #ff585d">programmer</div>
-                    </div>
-                </div>
-            </div>
+      /* Alternate sides */
+      .timeline-item:nth-child(odd) .col-left {
+        order: 1;
+      }
+      .timeline-item:nth-child(odd) .col-right {
+        order: 2;
+      }
+      .timeline-item:nth-child(even) .col-left {
+        order: 2;
+      }
+      .timeline-item:nth-child(even) .col-right {
+        order: 1;
+      }
+
+      /* Mobile: stack on one side with the line at the left */
+      @media (max-width: 768px) {
+        .timeline {
+          padding-left: 20px;
+        }
+        .timeline::before {
+          left: 8px;
+          transform: none;
+        }
+        .timeline-item {
+          grid-template-columns: 1fr;
+        }
+        .timeline-node {
+          left: 8px;
+          transform: none;
+        }
+        .timeline-item .col-left,
+        .timeline-item .col-right {
+          order: initial;
+        }
+        .timeline-card {
+          margin-left: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    x-data="portfolio()"
+    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
+    class="font-[Inter]"
+  >
+    <!-- Navbar -->
+    <header
+      class="sticky top-0 z-40 backdrop-blur"
+      style="
+        background: color-mix(in oklab, var(--panel) 80%, transparent);
+        border-bottom: 1px solid var(--border);
+      "
+    >
+      <nav
+        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
+      >
+        <a href="#top" class="font-[Chakra Petch] text-xl tracking-wide"
+          >JIMIN</a
+        >
+        <div class="flex items-center gap-4 text-sm">
+          <a href="#projects" class="hover:opacity-80">Projects</a>
+          <a href="#experience" class="hover:opacity-80">Experience</a>
+          <a href="#education" class="hover:opacity-80">Education</a>
+          <a href="#about" class="hover:opacity-80">About</a>
+          <a
+            href="Jimin_Woo.pdf"
+            class="px-3 py-1 rounded-lg border border-soft hover:bg-surface"
+            >Resume</a
+          >
+          <button
+            @click="toggleTheme"
+            class="px-3 py-1 rounded-lg border border-soft"
+            aria-label="Toggle theme"
+          >
+            ☀︎/☾
+          </button>
         </div>
+      </nav>
+    </header>
 
-        <div class="ball1" id="click2">
-            <div class="translateX2">
-                <div class="translateY2">
-                    <div class="rotateZ">
-                        <div class="material" style="background: #ff8f1c">Experience</div>
-                    </div>
-                </div>
-            </div>
+    <!-- Hero -->
+    <main id="top" class="max-w-6xl mx-auto px-5">
+      <section
+        class="mt-10 md:mt-16 grid-bg rounded-3xl border border-soft p-6 md:p-10"
+      >
+        <span
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-surface border border-soft"
+        >
+          <span
+            class="w-2 h-2 rounded-sm"
+            style="background: var(--cyan)"
+          ></span>
+          toy-tech portfolio
+        </span>
+        <h1 class="mt-4 font-[Chakra Petch] text-4xl md:text-5xl leading-tight">
+          I build <span style="color: var(--cyan)">playful</span>,
+          <span style="color: var(--yellow)">reliable</span>, user-first
+          systems.
+        </h1>
+        <p class="mt-3 text-sub max-w-2xl">
+          Full-stack developer & 4th-year Computer Engineering @ University of
+          Toronto. Currently improving reliability at
+          <a
+            class="inline-link"
+            href="https://www.genesys.com/"
+            target="_blank"
+            rel="noreferrer"
+            >Genesys</a
+          >
+          • GUI Lead @
+          <a
+            class="inline-link"
+            href="https://www.autodrive.utoronto.ca/"
+            target="_blank"
+            rel="noreferrer"
+            >aUToronto</a
+          >
+          (AutoDrive <b>1st Overall</b> & <b>Perfect HMI</b>).
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            class="px-4 py-2 rounded-xl font-medium"
+            style="background: var(--cyan); color: #000"
+            href="mailto:rain.woo@mail.utoronto.ca"
+            >Email</a
+          >
+          <a
+            class="px-4 py-2 rounded-xl font-medium"
+            style="background: var(--magenta); color: #000"
+            href="https://github.com/RainWoo1"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+          <a
+            class="px-4 py-2 rounded-xl font-medium"
+            style="background: var(--yellow); color: #000"
+            href="https://www.linkedin.com/in/rainjiminwoo/"
+            target="_blank"
+            rel="noreferrer"
+            >LinkedIn</a
+          >
         </div>
+      </section>
 
-        <!--<div class="ball2">
-        <div class="translateX">
-            <div class="translateY">
-                <div class="rotateZ">
-                    <div class="material" style="background: #9BDEE2">Artwork</div>
-                </div>
-            </div>
+      <!-- Featured Projects (with images + modal) -->
+      <section id="projects" class="py-12 md:py-16">
+        <div class="flex items-end justify-between mb-6">
+          <h2 class="font-[Chakra Petch] text-3xl">Featured projects</h2>
         </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <template x-for="p in projects" :key="p.title">
+            <article
+              @click="open(p)"
+              @keydown.enter.prevent="open(p)"
+              @keydown.space.prevent="open(p)"
+              tabindex="0"
+              role="button"
+              :aria-label="'Open details for ' + p.title"
+              class="toy-card cursor-pointer rounded-2xl border border-soft bg-surface p-4"
+            >
+              <div class="img-16x9 mb-3">
+                <img
+                  :src="p.image"
+                  :alt="p.title + ' preview'"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="text-lg font-semibold" x-text="p.title"></h3>
+              <p class="mt-2 text-sm text-sub" x-text="p.blurb"></p>
+              <ul class="mt-3 space-y-1 text-sm text-sub list-disc pl-5">
+                <template x-for="i in p.impact"><li x-text="i"></li></template>
+              </ul>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <template x-for="t in p.tech">
+                  <span
+                    class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
+                    ><span x-text="t"></span
+                  ></span>
+                </template>
+              </div>
+              <div class="mt-4 flex gap-3">
+                <template x-if="p.links?.live"
+                  ><a
+                    class="inline-link text-sm"
+                    :href="p.links.live"
+                    target="_blank"
+                    rel="noreferrer"
+                    @click.stop
+                    >Live</a
+                  ></template
+                >
+                <template x-if="p.links?.code"
+                  ><a
+                    class="inline-link text-sm"
+                    :href="p.links.code"
+                    target="_blank"
+                    rel="noreferrer"
+                    @click.stop
+                    >Code</a
+                  ></template
+                >
+              </div>
+            </article>
+          </template>
+        </div>
+      </section>
+
+      <!-- Experience & Education (Alternating Timeline, Grid-Based) -->
+      <section id="experience" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-[Chakra Petch] text-3xl text-center mb-12">
+            Experience & Education
+          </h2>
+
+          <div class="relative">
+            <!-- Center spine -->
+            <div
+              class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[var(--border)]"
+            ></div>
+
+            <div class="space-y-12">
+              <!-- 1) Genesys (LEFT) -->
+              <div class="relative md:grid md:grid-cols-2">
+                <!-- dot -->
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <!-- card -->
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    Software Engineering Intern — Genesys
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    May 2025 – Present · Toronto, Canada
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Built and optimized cloud recording workflows (AWS Lambda,
+                    DynamoDB, S3), cutting recurring incidents by <b>41%</b>;
+                    unified test reporting accelerated debugging across
+                    <b>300+ builds/week</b>.
+                  </p>
+                  <ul class="list-disc pl-5 mt-2 text-sub text-sm">
+                    <li>Java, Python, Postgres, Jenkins</li>
+                  </ul>
+                </article>
+                <!-- spacer column (keeps the card on the left) -->
+                <div class="hidden md:block"></div>
+              </div>
+
+              <!-- 2) aUToronto (RIGHT) -->
+              <div class="relative md:grid md:grid-cols-2">
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <!-- empty left col to push card right -->
+                <div class="hidden md:block"></div>
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    Graphical User Interfacec (GUI) Lead — aUToronto
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    Sep 2024 – Present · Toronto, Canada
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Led HMI in React/TypeScript/Tailwind; integrated
+                    <b>10+ ROS stacks</b> into a fault-tolerant UI; contributed
+                    to <b>1st Overall</b> in
+                    <b>SAE/GM AutoDrive Challenge 2024</b>; mission launch in
+                    <b>&lt;30s</b>.
+                  </p>
+                </article>
+              </div>
+
+              <!-- 3) WayCen (LEFT) -->
+              <div class="relative md:grid md:grid-cols-2">
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    Machine Learning Intern — WayCen
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    May 2023 – Aug 2023 · Seoul, Korea
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Conducted research on real-time video object detection for
+                    endoscopy videos to enhance early cancer detection rates.
+                  </p>
+                </article>
+                <div class="hidden md:block"></div>
+              </div>
+
+              <!-- 4) Artifriends (RIGHT) -->
+              <div class="relative md:grid md:grid-cols-2">
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <div class="hidden md:block"></div>
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    Full-Stack Developer Intern — Artifriends
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    Mar 2022 – Jun 2022 · Seoul, Korea
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Rebuilt secure login/profile for an NFT wallet platform
+                    (Node.js, MySQL), improving auth reliability and load time;
+                    authored an <b>80-page</b> blockchain engine guide for Upbit
+                    Dev Conference.
+                  </p>
+                </article>
+              </div>
+
+              <!-- 5) University of Toronto (LEFT) -->
+              <div class="relative md:grid md:grid-cols-2">
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    University of Toronto — B.A.Sc., Computer Engineering (Minor
+                    in Robotics)
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    Mar 2022 – Jul 2027 · Toronto, Canada
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Dean’s Honour List, Edward S. Rogers Sr. Admission
+                    Scholarship.
+                  </p>
+                </article>
+                <div class="hidden md:block"></div>
+              </div>
+
+              <!-- 6) Seoul Arts High School (RIGHT) -->
+              <div class="relative md:grid md:grid-cols-2">
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <div class="hidden md:block"></div>
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    Seoul Arts High School — Fine Arts & Design
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    2018 – 2021 · Seoul, Korea
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Graduated top of class; strong foundations in visual design
+                    and typography applied to user-first engineering.
+                  </p>
+                </article>
+              </div>
+
+              <!-- 7) Yewon School (LEFT) -->
+              <!-- <div class="relative md:grid md:grid-cols-2">
+                <span
+                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
+                ></span>
+                <article
+                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
+                >
+                  <h3 class="text-lg font-semibold">
+                    Yewon School — Arts Foundation
+                  </h3>
+                  <div class="text-sub text-xs mt-1">
+                    2015 – 2018 · Seoul, Korea
+                  </div>
+                  <p class="mt-2 text-sub">
+                    Early arts curriculum focused on drawing, composition, and
+                    observation—skills now applied to product UX and system
+                    clarity.
+                  </p>
+                </article>
+                <div class="hidden md:block"></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="py-12 md:py-16 border-t border-soft">
+        <h2 class="font-[Chakra Petch] text-3xl mb-4">About</h2>
+        <div class="max-w-3xl space-y-4 text-sub">
+          <p>
+            I’m a 4th-year Computer Engineering student at the University of
+            Toronto, passionate about building user-focused, scalable software.
+            My experience spans frontend development, cloud infrastructure, and
+            human-computer interaction.
+          </p>
+          <p>
+            At Genesys, I’ve developed cloud recording features that improved
+            reliability for thousands of users worldwide. As GUI Lead at
+            aUToronto, I designed and implemented an award-winning HMI for
+            autonomous vehicles, working closely with a cross-functional team to
+            integrate 10+ ROS stacks.
+          </p>
+          <p>
+            My background in fine arts — graduating #1 in design from Seoul Arts
+            High School — helps me approach engineering with a strong design
+            sensibility, blending aesthetics with functionality.
+          </p>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="py-10 border-t border-soft text-sm text-sub">
+        <div
+          class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
+        >
+          <p>© <span x-text="year"></span> Jimin Woo</p>
+          <div class="flex gap-4">
+            <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
+              >Email</a
+            >
+            <a
+              class="inline-link"
+              href="https://github.com/RainWoo1"
+              target="_blank"
+              rel="noreferrer"
+              >GitHub</a
+            >
+            <a
+              class="inline-link"
+              href="https://www.linkedin.com/in/rainjiminwoo/"
+              target="_blank"
+              rel="noreferrer"
+              >LinkedIn</a
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Project Modal (x-show only + x-html) -->
+    <div
+      x-show="modalOpen"
+      x-transition.opacity
+      class="modal-backdrop"
+      @click.self="close()"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        class="bg-app text-main max-w-3xl w-[92vw] max-h-[86vh] overflow-auto rounded-2xl border border-soft shadow-2xl"
+      >
+        <div
+          class="sticky top-0 bg-surface backdrop-blur border-b border-soft px-5 py-3 flex items-center justify-between"
+        >
+          <h3 class="font-[Chakra Petch] text-xl" x-text="active?.title"></h3>
+          <button
+            @click="close()"
+            class="px-3 py-1 rounded-lg border border-soft"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="p-5 space-y-4">
+          <div class="img-16x9">
+            <img :src="active?.image" :alt="active?.title + ' detail'" />
+          </div>
+          <p class="text-sub" x-html="active?.details"></p>
+          <ul class="list-disc pl-5 text-sm text-sub space-y-1">
+            <template x-for="i in active?.impact"
+              ><li x-text="i"></li
+            ></template>
+          </ul>
+          <div class="flex gap-3 pt-2">
+            <template x-if="active?.links?.live"
+              ><a
+                class="px-3 py-2 rounded-lg"
+                style="background: var(--cyan); color: #000"
+                :href="active.links.live"
+                target="_blank"
+                rel="noreferrer"
+                >Live</a
+              ></template
+            >
+            <template x-if="active?.links?.code"
+              ><a
+                class="px-3 py-2 rounded-lg"
+                style="background: var(--yellow); color: #000"
+                :href="active.links.code"
+                target="_blank"
+                rel="noreferrer"
+                >Code</a
+              ></template
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="ball3">
-        <div class="translateX">
-            <div class="translateY">
-                <div class="rotateZ">
-                    <div class="material" style="background: #0db54a">Interest</div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-    </div>
+    <script>
+      function portfolio() {
+        return {
+          // Theme
+          darkMode: localStorage.getItem("theme")
+            ? localStorage.getItem("theme") === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches,
+          toggleTheme() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem("theme", this.darkMode ? "dark" : "light");
+          },
+          year: new Date().getFullYear(),
 
+          // Modal
+          modalOpen: false,
+          active: null,
+          open(p) {
+            this.active = p;
+            this.modalOpen = true;
+            document.body.style.overflow = "hidden";
+          },
+          close() {
+            this.modalOpen = false;
+            this.active = null;
+            document.body.style.overflow = "";
+          },
 
-    <div class="ex-layout">
-        <div class="main">
-            <div class="lnb"></div>
-            <div class="content1">
-                <div style="padding-bottom: 1%;">
-                    <!-- <h1>Hi!</h1> -->
-                    <h1>Hello!</h1>
-                    <span id="whoami" style="font-size: 40px;"></span>
-                    <span class="blink" style="font-size: 40px;">_</span>
-                </div>
-                <p style="width: 90%; line-height: 1.8em; color: #121111; font-weight: 500;">
-                    I'm a third-year Computer Engineering student at the University of Toronto, and my passion
-                    lies in the fascinating fields of operating systems, machine learning, software development,
-                    UI/UX design, and robotics.
-                    When solving problems, I think both analytically and creatively.
-                    Currently based out of Toronto.
-                </p>
-                <p style="font-weight: 300;">Contact Me: </p>
-                <a href="https://github.com/RainWoo1" style="font-weight: 300;">Github</a>
-                <a href="https://www.linkedin.com/in/rainjiminwoo/" style="font-weight: 300;">Linkedin</a>
-                <a href="mailto:rain.woo@mail.utoronto.ca" style="font-weight: 300;">Email</a>
-            </div>
-            <div class="rnb"></div>
-        </div>
-        <div class="wrapper"></div>
-
-        <div id="move1" class="wrapper" style="background: #ff585d;"></div>
-        <div class="main">
-            <div class="lnb" style="background: #ff585d;"></div>
-            <div class="content" style="background: #ff585d;">
-                <h2 style="margin-bottom: 30px">Education</h2>
-                <div class="box-wrap" style="justify-content: left">
-                    <img src="logo/uoft.png" alt="uoft" class="edulogo">
-                    <div>
-                        <p class="subtext">2022. Sep - Current / Toronto, Canada</p>
-                        <h3 style="margin: 0; margin-inline: 0.5px;">University of Toronto / Computer Engineering</h3>
-                        <p class="subtext">Minor in Artificial Intelligence and Robotics</p>
-                    </div>
-                </div>
-                <!-- <div class="box-wrap" style="justify-content: left">
-                    <img src="logo/uihs.jpeg" alt="uihs" class="edulogo">
-                    <div>
-                        <p class="subtext">2020. Sep - 2022. Jun / Toronto, Canada</p>
-                        <h3 style="margin: 0; margin-inline: 0.5px;">Urban International High School</h3>
-                    </div>
-                </div> -->
-                <div class="box-wrap" style="justify-content: left">
-                    <img src="logo/sahs.jpeg" alt="sahs" class="edulogo">
-                    <div>
-                        <p class="subtext">2019. Mar - 2019. Sep / Seoul, South Korea</p>
-                        <h3 style="margin: 0; margin-inline: 0.5px;">Seoul Arts High School</h3>
-                        <p class="subtext">Majored in Fine Arts and Design</p>
-                    </div>
-                </div>
-                <div class="box-wrap" style="justify-content: left">
-                    <img src="logo/yewon.png" alt="yewon" class="edulogo">
-                    <div>
-                        <p class="subtext">2016. Mar - 2019. Feb / Seoul, South Korea</p>
-                        <h3 style="margin: 0; margin-inline: 0.5px;">Yewon School</h3>
-                        <p class="subtext">Majored in Fine Arts</p>
-                        <p class="subtext">Art Rep (2016 - 2019) based on academics and major grade</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rnb" style="background: #ff585d;"></div>
-        </div>
-        <div class="wrapper" style="background: #ff585d;"></div>
-
-
-        <div id="move2" class="wrapper" style="background: #ff8f1c;"></div>
-        <div class="main">
-            <div class="lnb" style="background: #ff8f1c"></div>
-            <div class="content" style="background: #ff8f1c">
-                <h2 style="margin-bottom: 30px">Experiences</h2>
-
-                <div class="box-wrap" style="justify-content: left">
-                    <img src="logo/waycen.png" alt="waycen" class="edulogo">
-                    <div>
-                        <p class="subtext">2023. June - Current / South Korea</p>
-                        <a class="h31" href="https://en.waycen.com/" title="waycen">Waycen / AI Developer Intern</a>
-                    </div>
-                </div>
-
-                <div class="box-wrap" style="justify-content: left">
-                    <img src="logo/artifriends.png" alt="artifriends" class="edulogo">
-                    <div>
-                        <p class="subtext">2022. May - July / Seoul, South Korea</p>
-                        <a class="h31" href="https://artifriends.com/index_de.html#" title="artifriends">ArtiFriends /
-                            Web Developer Intern</a>
-                    </div>
-                </div>
-                <br>
-
-            </div>
-            <div class="rnb" style="background: #ff8f1c;"></div>
-        </div>
-        <div class="wrapper" style="background: #ff8f1c;"></div>
-
-
-        <div class="wrapper" style="background: #0db54a;"></div>
-        <div class="main">
-            <div class="lnb" style="background: #0db54a"></div>
-            <div class="content2" style="background: #0db54a">
-
-                <h2 style="margin-bottom: 30px">Projects</h2>
-
-                <div class="box-wrap" style="justify-content: left">
-
-                    <div class="box-wrap-wrap">
-                        <img src="asset/medipath.png" alt="medipath" class="project">
-                        <div>
-                            <p class="h31" title="medipath">MediPath</a>
-                            <p class="subtext">Jan 2024 - May 2024</p>
-                            <td class="tg-0lax" style="padding-bottom: 30px">
-                                <button class="btn btn-round">HTML</button>
-                                <button class="btn btn-round">CSS</button>
-                                <button class="btn btn-round">Javascript</button>
-                                <button class="btn btn-round">Blockchain</button>
-                                <button class="btn btn-round">AWS</button>
-                            </td>
-                            <p class="subtext">C++ mapping solution for ambulance drivers to navigate the best route,
-                                integrating OpenStreetMap API, GTK, TomTom API, and EZGL libraries</p>
-                                <!-- https://github.com/RainWoo1/MediPath -->
-
-                        </div>
-                    </div>
-
-                    <div class="box-wrap-wrap">
-                        <img src="asset/medipath.png" alt="medipath" class="project">
-                        <div>
-                            <p class="h31" title="NER diet tracker">NER diet tracker</a>
-                            <p class="subtext">Jan 2024 - May 2024</p>
-                            <td class="tg-0lax" style="padding-bottom: 30px">
-                                <button class="btn btn-round">TypeScript</button>
-                                <button class="btn btn-round">React Native</button>
-                                <button class="btn btn-round">Flask</button>
-                                <button class="btn btn-round">Pytorch</button>
-                                <button class="btn btn-round">SpaCy</button>
-                            </td>
-                            <p class="subtext">A diet tracker to give users a nutrient breakdown of meals via recording instead of typing.
-                                When a user talks about the meals had today, the app converts voice to meal information to record the meal daily.
-                                It also suggests meals based on the nutrients and give me
-                            </p>
-                                <!-- https://github.com/RainWoo1/MediPath -->
-                        </div>
-                    
-                    </div>
-
-                    <div class="box-wrap-wrap">
-                        <img src="asset/medipath.png" alt="medipath" class="project">
-                        <div>
-                            <p class="h31" title="medipath">MediPath</a>
-                            <p class="subtext">Jan 2024 - May 2024</p>
-                            <td class="tg-0lax" style="padding-bottom: 30px">
-                                <button class="btn btn-round">HTML</button>
-                                <button class="btn btn-round">CSS</button>
-                                <button class="btn btn-round">Javascript</button>
-                                <button class="btn btn-round">Blockchain</button>
-                                <button class="btn btn-round">AWS</button>
-                            </td>
-                            <p class="subtext">C++ mapping solution for ambulance drivers to navigate the best route,
-                                integrating OpenStreetMap API, GTK, TomTom API, and EZGL libraries</p>
-                                <!-- https://github.com/RainWoo1/MediPath -->
-                        </div>
-                    
-                    </div>
-                </div>
-
-
-                <!-- <table class="tg">
-                    <thead>
-                        <tr>
-                            <td class="tg-0lax">
-                                <div class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">&times;</span>
-                                        <div class="box-wrap">
-                                            <img src="artiblog1.png" alt="artiblog"
-                                                style="width: 350px; height: 300px;">
-                                            <img src="artiblog2_1.jpg" alt="artiblog"
-                                                style="width: 350px; height: 250px;">
-                                            <img src="artiblog4.png" alt="artiblog"
-                                                style="width: 350px; height: 250px;">
-                                        </div>
-                                        <div>
-                                            <h3>ArtiFriends Tech Blog</h3>
-                                            <p>A tech blog for a blockchain company using blockchain engine
-                                                'SASEUL' developed by ArtiFriends.
-                                                Incorporate SASEUL
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a class="h31 btn1" style="margin: 3px 0 0 0">ArtiFriends Tech Blog</a>
-                            </td>
-                            <td class="tg-0lax" rowspan="3">
-                                <img src="artiblog1.png" alt="artiblog" style="width: 200px; height: 160px;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tg-0lax">
-                                <p style="margin: 0">A tech blog for a blockchain company using blockchain engine</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tg-0lax" style="padding-bottom: 30px">
-                                <button class="btn btn-round">HTML</button>
-                                <button class="btn btn-round">CSS</button>
-                                <button class="btn btn-round">Javascript</button>
-                                <button class="btn btn-round">Blockchain</button>
-                                <button class="btn btn-round">AWS</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="tg-0pky">
-
-                                <div class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">&times;</span>
-                                        <div class="box-wrap">
-                                            <img src="kcict.png" alt="kcict" style="width: 450px; height: 300px;">
-                                        </div>
-                                        <div>
-                                            <h3>KCICT Website</h3>
-                                            <p>A website for Korea-China Exchange Association.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a class="h31 btn1" style="margin: 3px 0 0 0">KCICT Website</a>
-                            </th>
-
-                            <th class="tg-0lax" rowspan="3">
-                                <img src="kcict.png" alt="kcict" style="width: 200px; height: 160px;">
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="tg-0lax">
-                                <p style="margin: 0">A website for Korea-China Exchange Association</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="tg-0lax" style="padding-bottom: 30px">
-                                <button class="btn btn-round">HTML</button>
-                                <button class="btn btn-round">CSS</button>
-                                <button class="btn btn-round">Javascript</button>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="tg-0lax">
-                                <div class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">&times;</span>
-                                        <div class="box-wrap">
-                                            <img src="personalwebsite.png" alt="website"
-                                                style="width: 400px; height: 300px;">
-                                        </div>
-                                        <div>
-                                            <h3>Personal Website</h3>
-                                            <p>A web portfolio developed</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a class="h31 btn1" style="margin: 3px 0 0 0">Personal Website</a>
-                            </td>
-                            <td class="tg-0lax" rowspan="3">
-                                <img src="personalwebsite.png" alt="personalwebsite"
-                                    style="width: 200px; height: 160px;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tg-0lax">
-                                <p style="margin: 0">A web portfolio developed</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tg-0lax" style="padding-bottom: 30px">
-                                <button class="btn btn-round">HTML</button>
-                                <button class="btn btn-round">CSS</button>
-                                <button class="btn btn-round">Javascript</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table> -->
-
-                <p>For more, please visit my github profile!</p>
-                <br>
-
-
-
-            </div>
-            <div class="rnb1" style="background: #0db54a;"></div>
-        </div>
-        <div class="wrapper" style="background: #0db54a;"></div>
-
-
-
-        <div class="wrapper" style="background: #9BDEE2;"></div>
-        <div class="main">
-            <div class="lnb" style="background: #9BDEE2"></div>
-            <div class="content2" style="background: #9BDEE2">
-
-                <h2 style="margin-bottom: 30px">Artworks</h2>
-
-                <div class="box-wrap">
-                    <!--                Find me if you can-->
-                    <div class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div style="text-align: center;">
-                                <img src="artwork/findmeifucan.jpg" alt="findmeifucan"
-                                    style="width: 350px; height: auto;">
-                                <h3>Find me if you can, 2019</h3>
-                            </div>
-                            <div>
-                                <p>91 X 144 cm, Mixed media, a video 5’36”, and
-                                    engineering devices.
-                                    This artwork incorporates painting, digital media, and devices such
-                                    as electronic circuits, LEDs, and Arduino to depict Korea’s ‘Hell
-                                    Joseon’ phenomena. A particular focus is given to students exposed
-                                    to extremely competitive situations and inhumane conditions.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box" style="width: 150px;">
-                        <div class="img">
-                            <img src="artwork/findmeifucan.jpg" alt="findmeifucan">
-                        </div>
-                        <div class="info btn1">
-                            <h3>Find me if you can, 2019</h3>
-                            <p>91 X 144 cm, Mixed media, a video 5’36”, and
-                                engineering devices.</p>
-                        </div>
-                    </div>
-
-                    <!--                A letter to the stars-->
-                    <div class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div>
-                                <img src="artwork/letterstar.jpg" alt=" letter to the stars"
-                                    style="width: 250px; height: 300">
-                                <h3>A letter to the stars, 2016</h3>
-                                <p>72.7 X 53.0 cm, Acrylic on canvas.
-                                    This artwork is designed to express acknowledgment to all the
-                                    science frontiers who had put their lives to advance science
-                                    technologies and improve the lives of many in the hope of making
-                                    this world more beautiful.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info btn1">
-                        <div class="box" style="width: 280px;"> <!--style="width: 500px; height: 360px;"-->
-                            <div class="img">
-                                <img src="artwork/letterstar.jpg" alt=" letter to the stars">
-                            </div>
-                            <h3>A letter to the stars, 2016</h3>
-                            <p>72.7 X 53.0 cm, Acrylic on canvas</p>
-                        </div>
-                    </div>
-
-                    <!--                Stars-->
-                    <div class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div>
-                                <img src="artwork/stars.jpg" alt="stars">
-                                <h3>A letter to the stars, 2016</h3>
-                                <p>72.7 X 53.0 cm, Acrylic on canvas.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box" style="width: 150px;"> <!--style="width: 220px;"-->
-                        <div class="img">
-                            <img src="artwork/stars.jpg" alt="stars">
-                        </div>
-                        <div class="info">
-                            <h3>The journey goes on, and spring always comes, 2019</h3>
-                            <p>37 X 72 cm, Acrylic on canvas</p>
-                        </div>
-                    </div>
-
-                    <!--                The journey goes on, and spring always comes-->
-                    <div class="box" style="width: 250px;"> <!--style="width: 450px;"-->
-                        <div class="img">
-                            <img src="artwork/pax%20snoom.png" alt="paxsnoom">
-                        </div>
-                        <div class="info">
-                            <h3>PAX SNOOM</h3>
-                            <p>41 X 33 X 4 cm, a plaster relievo</p>
-                        </div>
-                    </div>
-                    <!--            </div>-->
-
-                    <!--            <div class="box-wrap">-->
-                    <div class="box">
-                        <div class="img" style="width: 300px;">
-                            <img src="artwork/tempera.JPG" alt="tempera">
-                        </div>
-                        <div class="info">
-                            <h3>The journey goes on, and spring always comes, 2019</h3>
-                            <p>37 X 72 cm, ‘I am an artist youth competition, Grand Prize,’
-                                Hong Kong. Invited exhibitions at JCCAC L1 Gallery, Hong Kong and Yewon Art School,
-                                Korea.</p>
-                        </div>
-                    </div>
-                    <div class="box" style="width: 150px;">
-                        <div class="img">
-                            <img src="artwork/yego.png" alt="yego">
-                        </div>
-                        <div class="info">
-                            <h3>The journey goes on, and spring always comes, 2019</h3>
-                            <p>37 X 72 cm, ‘I am an artist youth competition, Grand Prize,’
-                                Hong Kong. Invited exhibitions at JCCAC L1 Gallery, Hong Kong and Yewon Art School,
-                                Korea.</p>
-                        </div>
-                    </div>
-                    <div class="box" style="width: 230px;">
-                        <div class="img">
-                            <img src="artwork/statue.jpg" alt="statue">
-                        </div>
-                        <div class="info">
-                            <h3>The journey goes on, and spring always comes, 2019</h3>
-                            <p>37 X 72 cm, ‘I am an artist youth competition, Grand Prize,’
-                                Hong Kong. Invited exhibitions at JCCAC L1 Gallery, Hong Kong and Yewon Art School,
-                                Korea.</p>
-                        </div>
-                    </div>
-                    <div class="box" style="width: 140px;">
-                        <div class="img">
-                            <img src="artwork/book1.png" alt="book">
-                        </div>
-                        <div class="info">
-                            <h3>A strange and amusing story</h3>
-                            <p>37 X 72 cm, ‘I am an artist youth competition, Grand Prize,’
-                                Hong Kong. Invited exhibitions at JCCAC L1 Gallery, Hong Kong and Yewon Art School,
-                                Korea.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="rnb1" style="background: #9BDEE2;"></div>
-        </div>
-        <div class="wrapper" style="background: #9BDEE2;"></div>
-
-        <div class="wrapper" style="background: #0db54a;"></div>
-        <div class="main">
-            <div class="lnb" style="background: #0db54a"></div>
-            <div class="content" style="background: #0db54a">
-                <h2 style="margin-bottom: 30px">Interest</h2>
-                <a class="h3">Singing</a>
-                <p class="subtext1">I like singing so much. I went to the choir since grade 1.</p>
-                <a href="#dancing">Dancing</a>
-                <p class="subtext1">I like performing k-pop dancing with my friends. I went to the
-                    dance academy since grade 11.</p>
-                <a href="#boxing">Boxing</a>
-                <p class="subtext1">To gain stemina, I learned boxing for 8 months to keep my physical
-                    and mental health well.</p>
-                <a href="#cooking">Cooking</a>
-                <p class="subtext1">Interests in how to find good food in a restaurant has always been a
-                    priority for me. I made a Seoul food tour map when I was grade 9.</p>
-                <a href="#singing">Singing</a>
-            </div>
-            <div class="rnb" style="background: #0db54a"></div>
-        </div>
-    </div>
-
-    <!--Javascript-->
-    <script src="index.js" type="text/javascript"></script>
-    <script src="typing.js" type="text/javascript"></script>
-
-</body>
-
+          // Projects
+          projects: [
+            {
+              title: "aUToronto HMI (1st Overall)",
+              blurb:
+                "Fault-tolerant React/TypeScript interface integrating 10+ ROS stacks; mission launch & waypoint control in <30s.",
+              impact: [
+                "Stabilized high-frequency data UI",
+                "Improved operator flow & visibility",
+                "Competition-proven reliability",
+              ],
+              tech: ["React", "TypeScript", "Tailwind", "ROS", "Figma"],
+              image: "./asset/gui.png",
+              links: {},
+              details:
+                "Mission control HMI with clear state hierarchy, batched updates, and graceful offline handling to reduce operator error and setup time.",
+            },
+            // {
+            //   title: "Genesys Reliability Work",
+            //   blurb:
+            //     "Reduced recurring storage failures by 41% and unarchived recordings by 28% via AWS workflow redesigns.",
+            //   impact: [
+            //     "DynamoDB retry/backoff",
+            //     "Postgres archival fixes",
+            //     "CI visibility for 300+ builds/wk",
+            //   ],
+            //   tech: [
+            //     "Java",
+            //     "Python",
+            //     "AWS",
+            //     "DynamoDB",
+            //     "Postgres",
+            //     "Jenkins",
+            //   ],
+            //   image:
+            //     "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
+            //   links: { case: "#", code: "https://github.com/RainWoo1" },
+            //   details:
+            //     "Improved reliability for compliance-sensitive call recording by redesigning storage workflows and surfacing CI signals.",
+            // },
+            {
+              title: "MediPath (Emergency Routing)",
+              blurb:
+                "C++/GTK UI with TomTom realtime traffic; multi-threaded engine cut map load p95 by ~40%.",
+              impact: [
+                "Low-distraction UI",
+                "Faster recalculation",
+                "Improved response times",
+              ],
+              tech: ["C++", "GTK", "TomTom API"],
+              image: "./asset/medipath.png",
+              links: {
+                case: "#",
+                code: "https://github.com/RainWoo1/MediPath",
+              },
+              details:
+                "Emergency UI principles: fat-finger targets, reduced cognitive load, predictable motion for rapid decisions.",
+            },
+            {
+              title: "Daily Calorie Planner (Mobile)",
+              blurb:
+                "End-to-end app from Figma to React Native; 90%+ food Named-Entity Network accuracy with Flask/SpaCy and voice logging.",
+              impact: [
+                "Hands-free logging",
+                "p95 recognition ~600ms",
+                "Accessible daily flow",
+              ],
+              tech: ["React Native", "TypeScript", "Flask", "Pytorch", "SpaCy"],
+              image: "./asset/calorieplanner.png",
+              links: {
+                code: "https://github.com/RainWoo1/daily-calorie-planner",
+              },
+              details:
+                "Voice-first meal logging with model-assisted classification; resilient offline flows and quick add patterns.",
+            },
+            {
+              title: "LSTM Stock Portfolio Curation",
+              blurb:
+                "Sequence model predicting next-day returns from OHLCV and technical signals; emphasis on robust validation.",
+              impact: [
+                "Walk-forward split & leakage control",
+                "p75 directional accuracy ↑ vs. baseline",
+                "Feature ablation to explain signals",
+              ],
+              tech: ["PyTorch", "LSTM", "Pandas", "scikit-learn"],
+              image: "./asset/stock.png",
+              links: {
+                code: "https://github.com/RainWoo1/LSTM-Stock-Portfolio-Curation",
+              },
+              details:
+                "GRU trained with rolling windows and strict leakage controls; measured accuracy and risk-adjusted metrics.",
+            },
+            {
+              title: "Career Canvas",
+              blurb:
+                "Generative AI based course recommendations for UofT ArtSci students (tasks, notes, deadlines) with keyboard-first UX.",
+              impact: [
+                "Board/List views with filters",
+                "Local-first draft saving",
+                "a11y: focus rings & shortcuts",
+              ],
+              tech: ["Next.js", "TypeScript", "React", "Figma"],
+              image: "./asset/careercanvas.png",
+              links: { code: "https://devpost.com/software/gencourse" },
+              details:
+                "Kanban + list hybrid with fast keyboard navigation (⌘K, J/K), inline editing, and filterable tags.",
+            },
+          ],
+        };
+      }
+    </script>
+  </body>
 </html>
