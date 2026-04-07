@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -87,7 +87,9 @@
         object-fit: cover;
       }
       .toy-card {
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
       }
       .toy-card:hover {
         transform: translateY(-4px) rotate(0.4deg);
@@ -224,10 +226,10 @@
           >JIMIN</a
         >
         <div class="flex items-center gap-4 text-sm">
+          <a href="#about" class="hover:opacity-80">About</a>
           <a href="#projects" class="hover:opacity-80">Projects</a>
           <a href="#experience" class="hover:opacity-80">Experience</a>
-          <a href="#education" class="hover:opacity-80">Education</a>
-          <a href="#about" class="hover:opacity-80">About</a>
+          <a href="#experience" class="hover:opacity-80">Education</a>
           <a
             href="Jimin_Woo.pdf"
             class="px-3 py-1 rounded-lg border border-soft hover:bg-surface"
@@ -247,65 +249,110 @@
     <!-- Hero -->
     <main id="top" class="max-w-6xl mx-auto px-5">
       <section
-        class="mt-10 md:mt-16 grid-bg rounded-3xl border border-soft p-6 md:p-10"
+        class="mt-10 md:mt-16 grid-bg rounded-3xl border border-soft p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8"
       >
-        <span
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-surface border border-soft"
-        >
+        <div class="flex-1 order-2 md:order-1">
           <span
-            class="w-2 h-2 rounded-sm"
-            style="background: var(--cyan)"
-          ></span>
-          toy-tech portfolio
-        </span>
-        <h1 class="mt-4 font-[Chakra Petch] text-4xl md:text-5xl leading-tight">
-          I build <span style="color: var(--cyan)">playful</span>,
-          <span style="color: var(--yellow)">reliable</span>, user-first
-          systems.
-        </h1>
-        <p class="mt-3 text-sub max-w-2xl">
-          Full-stack developer & 4th-year Computer Engineering @ University of
-          Toronto. Currently improving reliability at
-          <a
-            class="inline-link"
-            href="https://www.genesys.com/"
-            target="_blank"
-            rel="noreferrer"
-            >Genesys</a
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-surface border border-soft"
           >
-          • GUI Lead @
-          <a
-            class="inline-link"
-            href="https://www.autodrive.utoronto.ca/"
-            target="_blank"
-            rel="noreferrer"
-            >aUToronto</a
+            <span
+              class="w-2 h-2 rounded-sm"
+              style="background: var(--cyan)"
+            ></span>
+            Jimin Woo
+          </span>
+          <h1
+            class="mt-4 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
           >
-          (AutoDrive <b>1st Overall</b> & <b>Perfect HMI</b>).
-        </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a
-            class="px-4 py-2 rounded-xl font-medium"
-            style="background: var(--cyan); color: #000"
-            href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="px-4 py-2 rounded-xl font-medium"
-            style="background: var(--magenta); color: #000"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="px-4 py-2 rounded-xl font-medium"
-            style="background: var(--yellow); color: #000"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
+            Jimin Woo
+          </h1>
+          <p class="mt-3 text-sub max-w-xl text-lg leading-relaxed">
+            Computer Engineering student @ <b>University of Toronto</b>
+            <br />
+            Optimizing cloud infrastructure @
+            <a class="inline-link" href="https://www.genesys.com/"
+              ><b>Genesys</b></a
+            >
+            <br />
+            Architecting the HMI @
+            <a class="inline-link" href="https://www.autodrive.utoronto.ca/"
+              ><b>UofT's Self Driving Car Team</b></a
+            >
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a
+              class="px-4 py-2 rounded-xl font-medium"
+              style="background: var(--cyan); color: #000"
+              href="mailto:rain.woo@mail.utoronto.ca"
+              >Email</a
+            >
+            <a
+              class="px-4 py-2 rounded-xl font-medium"
+              style="background: var(--magenta); color: #000"
+              href="https://github.com/RainWoo1"
+              target="_blank"
+              rel="noreferrer"
+              >GitHub</a
+            >
+            <a
+              class="px-4 py-2 rounded-xl font-medium"
+              style="background: var(--yellow); color: #000"
+              href="https://www.linkedin.com/in/rainjiminwoo/"
+              target="_blank"
+              rel="noreferrer"
+              >LinkedIn</a
+            >
+          </div>
+        </div>
+
+        <div class="shrink-0 order-1 md:order-2">
+          <img
+            src="./asset/profile_photo_cropped.JPG"
+            alt="Jimin Woo"
+            class="w-50 h-59 md:w-80 md:h-80 rounded-3xl object-cover border-2 border-soft shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300"
+          />
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="py-12 md:py-16 border-t border-soft">
+        <h2 class="font-[Chakra Petch] text-3xl mb-6">About</h2>
+        <div class="max-w-4xl space-y-6 text-sub text-lg leading-relaxed">
+          <p>
+            I’m a 4th-year <b>Computer Engineering</b> student at the University
+            of Toronto, and my passion lies in the fascinating fields of
+            <b>High-Performance Systems and Machine Learning.</b>
+          </p>
+
+          <p>
+            As an analytical mind with an insatiable curiosity for exploring
+            complex engineering concepts, I thrive in environments that push me
+            to the limits. Whether I'm refactoring core APIs or architecting 3D
+            visualization pipelines, I focus on building systems that are as
+            <b>reliable</b> as they are <b>user-first</b>.
+          </p>
+
+          <p>
+            Currently, I’m diving deep into cutting-edge development and
+            research across multiple fronts: I'm optimizing cloud scalability at
+            <b>Genesys</b>, leading the HMI team for <b>aUToronto</b>, and
+            tackling innovative problems in <b>3D scene reconstruction</b>.
+            Yeah, I keep busy!
+          </p>
+
+          <p>
+            What makes my approach unique is my background in fine arts.
+            Graduating at the rigorous Design program at
+            <b>Yewon School</b> taught me to decompose complex information into
+            intuitive logical visual logic. I now apply those same principles to
+            software architecture design.
+          </p>
+
+          <p>
+            Interested in learning more about my projects, experiences, or just
+            want to chat about the future of AI? Feel free to reach out – I’m
+            always eager to exchange ideas with fellow tech enthusiasts!
+          </p>
         </div>
       </section>
 
@@ -397,19 +444,26 @@
                   class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
                 >
                   <h3 class="text-lg font-semibold">
-                    Software Engineering Intern — Genesys
+                    Genesys - Software Engineering Intern
                   </h3>
                   <div class="text-sub text-xs mt-1">
                     May 2025 – Present · Toronto, Canada
                   </div>
                   <p class="mt-2 text-sub">
-                    Built and optimized cloud recording workflows (AWS Lambda,
-                    DynamoDB, S3), cutting recurring incidents by <b>41%</b>;
-                    unified test reporting accelerated debugging across
-                    <b>300+ builds/week</b>.
+                    Working within the Recording team to manage the end-to-end
+                    lifecycle of voice, screen, and text recordings.
+                  </p>
+                  <p class="mt-2 text-sub">
+                    My focus is on refactoring core Go and Java APIs to ensure
+                    reliable data persistence across AWS DynamoDB and S3.
+                  </p>
+                  <p class="mt-2 text-sub">
+                    Beyond just writing code, I’m building automated validation
+                    tools in Jenkins to catch edge cases in our cloud workflows
+                    before they reach production.
                   </p>
                   <ul class="list-disc pl-5 mt-2 text-sub text-sm">
-                    <li>Java, Python, Postgres, Jenkins</li>
+                    <li>Java, Python, Go, AWS, Kafka, Postgres, Jenkins</li>
                   </ul>
                 </article>
                 <!-- spacer column (keeps the card on the left) -->
@@ -427,17 +481,17 @@
                   class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
                 >
                   <h3 class="text-lg font-semibold">
-                    Graphical User Interfacec (GUI) Lead — aUToronto
+                    aUToronto - Graphical User Interface Team Lead
                   </h3>
                   <div class="text-sub text-xs mt-1">
                     Sep 2024 – Present · Toronto, Canada
                   </div>
                   <p class="mt-2 text-sub">
-                    Led HMI in React/TypeScript/Tailwind; integrated
-                    <b>10+ ROS stacks</b> into a fault-tolerant UI; contributed
-                    to <b>1st Overall</b> in
-                    <b>SAE/GM AutoDrive Challenge 2024</b>; mission launch in
-                    <b>&lt;30s</b>.
+                    I lead the development of the Human-Machine Interface (HMI)
+                    for UofT's self-driving car team. I architected the 2D and
+                    3D visualization systems that allow engineers to monitor
+                    real-time vehicle states and sensor data, contributing to
+                    our 1st place win at the AutoDrive Challenge.
                   </p>
                 </article>
               </div>
@@ -451,15 +505,21 @@
                   class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
                 >
                   <h3 class="text-lg font-semibold">
-                    Machine Learning Intern — WayCen
+                    WayCen - Software Engineering Intern
                   </h3>
                   <div class="text-sub text-xs mt-1">
                     May 2023 – Aug 2023 · Seoul, Korea
                   </div>
                   <p class="mt-2 text-sub">
-                    Conducted research on real-time video object detection for
-                    endoscopy videos to enhance early cancer detection rates.
+                    Researched real-time object detection for endoscopy videos
+                    to aid early cancer detection. I built custom Python tools
+                    to automate medical data labeling and converted complex
+                    annotation formats (COCO to PASCAL VOC) to streamline the
+                    model training pipeline.
                   </p>
+                  <ul class="list-disc pl-5 mt-2 text-sub text-sm">
+                    <li>TensorFlow, OpenCV, NumPy, Matplotlib</li>
+                  </ul>
                 </article>
                 <div class="hidden md:block"></div>
               </div>
@@ -474,17 +534,20 @@
                   class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
                 >
                   <h3 class="text-lg font-semibold">
-                    Full-Stack Developer Intern — Artifriends
+                    Artifriends - Software Engineering Intern
                   </h3>
                   <div class="text-sub text-xs mt-1">
                     Mar 2022 – Jun 2022 · Seoul, Korea
                   </div>
                   <p class="mt-2 text-sub">
-                    Rebuilt secure login/profile for an NFT wallet platform
-                    (Node.js, MySQL), improving auth reliability and load time;
-                    authored an <b>80-page</b> blockchain engine guide for Upbit
-                    Dev Conference.
+                    Developed a blockchain-integrated bulletin board platform. I
+                    focused on architecting secure SQL schemas for transaction
+                    logging and deploying the full-stack system on AWS to ensure
+                    high availability and decentralized data integrity.
                   </p>
+                  <ul class="list-disc pl-5 mt-2 text-sub text-sm">
+                    <li>JavaScript, AWS (EC2/Route53), MySQL, Docker</li>
+                  </ul>
                 </article>
               </div>
 
@@ -497,7 +560,7 @@
                   class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
                 >
                   <h3 class="text-lg font-semibold">
-                    University of Toronto — B.A.Sc., Computer Engineering (Minor
+                    University of Toronto - B.A.Sc., Computer Engineering (Minor
                     in Robotics)
                   </h3>
                   <div class="text-sub text-xs mt-1">
@@ -505,7 +568,7 @@
                   </div>
                   <p class="mt-2 text-sub">
                     Dean’s Honour List, Edward S. Rogers Sr. Admission
-                    Scholarship.
+                    Scholarship recipient.
                   </p>
                 </article>
                 <div class="hidden md:block"></div>
@@ -521,67 +584,22 @@
                   class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
                 >
                   <h3 class="text-lg font-semibold">
-                    Seoul Arts High School — Fine Arts & Design
+                    Yewon School - Fine Arts & Design
                   </h3>
                   <div class="text-sub text-xs mt-1">
-                    2018 – 2021 · Seoul, Korea
+                    2015 – 2019 · Seoul, Korea
                   </div>
                   <p class="mt-2 text-sub">
-                    Graduated top of class; strong foundations in visual design
-                    and typography applied to user-first engineering.
+                    My engineering mindset is built on a foundation of visual
+                    logic. Graduating at the top of the Design program taught me
+                    how to decompose complex information into intuitive layouts.
+                    I now apply these principles to software system architecture
+                    and UI design as a single cohesive challenge.
                   </p>
                 </article>
               </div>
-
-              <!-- 7) Yewon School (LEFT) -->
-              <!-- <div class="relative md:grid md:grid-cols-2">
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    Yewon School — Arts Foundation
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    2015 – 2018 · Seoul, Korea
-                  </div>
-                  <p class="mt-2 text-sub">
-                    Early arts curriculum focused on drawing, composition, and
-                    observation—skills now applied to product UX and system
-                    clarity.
-                  </p>
-                </article>
-                <div class="hidden md:block"></div>
-              </div> -->
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- About -->
-      <section id="about" class="py-12 md:py-16 border-t border-soft">
-        <h2 class="font-[Chakra Petch] text-3xl mb-4">About</h2>
-        <div class="max-w-3xl space-y-4 text-sub">
-          <p>
-            I’m a 4th-year Computer Engineering student at the University of
-            Toronto, passionate about building user-focused, scalable software.
-            My experience spans frontend development, cloud infrastructure, and
-            human-computer interaction.
-          </p>
-          <p>
-            At Genesys, I’ve developed cloud recording features that improved
-            reliability for thousands of users worldwide. As GUI Lead at
-            aUToronto, I designed and implemented an award-winning HMI for
-            autonomous vehicles, working closely with a cross-functional team to
-            integrate 10+ ROS stacks.
-          </p>
-          <p>
-            My background in fine arts — graduating #1 in design from Seoul Arts
-            High School — helps me approach engineering with a strong design
-            sensibility, blending aesthetics with functionality.
-          </p>
         </div>
       </section>
 
@@ -703,109 +721,85 @@
           // Projects
           projects: [
             {
-              title: "aUToronto HMI (1st Overall)",
+              title: "aUToronto HMI",
               blurb:
-                "Fault-tolerant React/TypeScript interface integrating 10+ ROS stacks; mission launch & waypoint control in <30s.",
-              impact: [
-                "Stabilized high-frequency data UI",
-                "Improved operator flow & visibility",
-                "Competition-proven reliability",
-              ],
-              tech: ["React", "TypeScript", "Tailwind", "ROS", "Figma"],
+                "A production-grade interface for real-time autonomous vehicle telemetry and mission control.",
+              tech: ["React", "C++", "Three.js", "TypeScript", "Node.js"],
               image: "./asset/gui.png",
-              links: {},
-              details:
-                "Mission control HMI with clear state hierarchy, batched updates, and graceful offline handling to reduce operator error and setup time.",
+              links: {
+                case: "#",
+                code: "https://github.com/RainWoo1/aUToronto-HMI",
+              },
+              details: `<strong>The Problem:</strong> During autonomous testing, engineers need to see exactly how the car perceives its environment in real-time, but standard terminal logs are difficult to interpret quickly. <br><br>
+              <strong>The Solution:</strong> I developed a unified HMI featuring 2D dashboards for system health and 3D visualizations for spatial awareness.
+              Using Three.js and Foxglove, I enabled the team to see obstacles, lanes, and planned paths in a high-fidelity environment.`,
             },
-            // {
-            //   title: "Genesys Reliability Work",
-            //   blurb:
-            //     "Reduced recurring storage failures by 41% and unarchived recordings by 28% via AWS workflow redesigns.",
-            //   impact: [
-            //     "DynamoDB retry/backoff",
-            //     "Postgres archival fixes",
-            //     "CI visibility for 300+ builds/wk",
-            //   ],
-            //   tech: [
-            //     "Java",
-            //     "Python",
-            //     "AWS",
-            //     "DynamoDB",
-            //     "Postgres",
-            //     "Jenkins",
-            //   ],
-            //   image:
-            //     "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
-            //   links: { case: "#", code: "https://github.com/RainWoo1" },
-            //   details:
-            //     "Improved reliability for compliance-sensitive call recording by redesigning storage workflows and surfacing CI signals.",
-            // },
             {
-              title: "MediPath (Emergency Routing)",
+              title: "MediPath",
               blurb:
-                "C++/GTK UI with TomTom realtime traffic; multi-threaded engine cut map load p95 by ~40%.",
-              impact: [
-                "Low-distraction UI",
-                "Faster recalculation",
-                "Improved response times",
-              ],
-              tech: ["C++", "GTK", "TomTom API"],
+                "Emergency routing mapping software using multi-threaded A* pathfinding.",
+              // impact: [
+              //   "Low-distraction UI",
+              //   "Faster recalculation",
+              //   "Improved response times",
+              // ],
+              tech: ["C++", "GTK", "TomTom API", "OSM Map"],
               image: "./asset/medipath.png",
               links: {
                 case: "#",
                 code: "https://github.com/RainWoo1/MediPath",
               },
-              details:
-                "Emergency UI principles: fat-finger targets, reduced cognitive load, predictable motion for rapid decisions.",
+              details: `<strong>The Problem:</strong> Emergency response routing requires near-instant recalculations that account for dynamic traffic density on massive city-wide datasets. <br><br>
+                <strong>The Solution:</strong> We developed a C++ engine utilizing multi-threaded A* and Dijkstra's algorithm to solve a variant of the Travelling Salesman Problem.
+                By integrating live TomTom traffic data, we optimized emergency routes to prioritize speed and reliability over simple distance.`,
             },
             {
-              title: "Daily Calorie Planner (Mobile)",
+              title: "Autonomous Forklift System",
               blurb:
-                "End-to-end app from Figma to React Native; 90%+ food Named-Entity Network accuracy with Flask/SpaCy and voice logging.",
-              impact: [
-                "Hands-free logging",
-                "p95 recognition ~600ms",
-                "Accessible daily flow",
-              ],
+                "Autonomous warehouse robot achieving navigation precision via custom PID control and real-time telemetry.",
+              tech: ["Python", "ESP32", "PID", "Raspberry Pi"],
+              image: "./asset/forklift.jpg",
+              details: `
+                <strong>The Problem:</strong> Autonomous warehouse navigation requires high-precision motor control and constant health monitoring to prevent collisions in tight spaces. <br><br>
+                <strong>The Solution:</strong> Developing the PID control firmware for precise movement and a C++ and Python-based telemetry interface that monitors the system’s health in real-time, ensuring safe and predictable navigation.
+              `,
+            },
+            {
+              title: "Daily Calorie Planner",
+              blurb:
+                "Voice-driven mobile application using NLP to automate nutritional tracking and meal logging.",
               tech: ["React Native", "TypeScript", "Flask", "Pytorch", "SpaCy"],
               image: "./asset/calorieplanner.png",
               links: {
                 code: "https://github.com/RainWoo1/daily-calorie-planner",
               },
-              details:
-                "Voice-first meal logging with model-assisted classification; resilient offline flows and quick add patterns.",
+              details: `<strong>The Problem:</strong> Manual food logging is the biggest barrier to consistent nutritional tracking due to the high friction of searching for individual items. <br><br>
+              <strong>The Solution:</strong> I built a React Native app that allows users to log meals naturally through voice. I developed a Python backend using SpaCy for Named-Entity Recognition (NER)
+              to extract food items and quantities from speech, mapping them to structured datasets instantly.`,
             },
             {
               title: "LSTM Stock Portfolio Curation",
               blurb:
-                "Sequence model predicting next-day returns from OHLCV and technical signals; emphasis on robust validation.",
-              impact: [
-                "Walk-forward split & leakage control",
-                "p75 directional accuracy ↑ vs. baseline",
-                "Feature ablation to explain signals",
-              ],
+                "Deep learning model predicting short-term stock returns using sequence-based feature engineering.",
               tech: ["PyTorch", "LSTM", "Pandas", "scikit-learn"],
               image: "./asset/stock.png",
               links: {
                 code: "https://github.com/RainWoo1/LSTM-Stock-Portfolio-Curation",
               },
-              details:
-                "GRU trained with rolling windows and strict leakage controls; measured accuracy and risk-adjusted metrics.",
+              details: `<strong>The Problem:</strong> Financial time-series data is notoriously noisy, and many predictive models fail because they inadvertently leak future information into the training sets. <br><br>
+              <strong>The Solution:</strong> I engineered an LSTM-based model to predict next-day returns.
+              I focused on rigorous data preprocessing and walk-forward cross-validation to ensure no data leakage, while using technical indicators as sequence features to capture market momentum.`,
             },
             {
               title: "Career Canvas",
               blurb:
-                "Generative AI based course recommendations for UofT ArtSci students (tasks, notes, deadlines) with keyboard-first UX.",
-              impact: [
-                "Board/List views with filters",
-                "Local-first draft saving",
-                "a11y: focus rings & shortcuts",
-              ],
-              tech: ["Next.js", "TypeScript", "React", "Figma"],
+                "AI-powered course recommendation platform for UofT students with a focus on keyboard-first UX.",
+              tech: ["Next.js", "TypeScript", "AWS", "OpenAI"],
               image: "./asset/careercanvas.png",
               links: { code: "https://devpost.com/software/gencourse" },
-              details:
-                "Kanban + list hybrid with fast keyboard navigation (⌘K, J/K), inline editing, and filterable tags.",
+              details: `<strong>The Problem:</strong> UofT students often struggle to find courses that align with their specific career goals amidst a massive, fragmented course catalog. <br><br>
+              <strong>The Solution:</strong> I built a generative AI platform that suggests academic paths based on user interests.
+              To ensure the tool was efficient for power users, I implemented a keyboard-first UX (shortcuts and command palettes) and a clean, responsive interface.`,
             },
           ],
         };
