@@ -223,13 +223,11 @@
         class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
       >
         <a href="#top" class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN</a
+          >JIMIN WOO</a
         >
         <div class="flex items-center gap-4 text-sm">
           <a href="#about" class="hover:opacity-80">About</a>
-          <a href="#projects" class="hover:opacity-80">Projects</a>
           <a href="#experience" class="hover:opacity-80">Experience</a>
-          <a href="#experience" class="hover:opacity-80">Education</a>
           <a
             href="Jimin_Woo.pdf"
             class="px-3 py-1 rounded-lg border border-soft hover:bg-surface"
@@ -252,15 +250,6 @@
         class="mt-10 md:mt-16 grid-bg rounded-3xl border border-soft p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8"
       >
         <div class="flex-1 order-2 md:order-1">
-          <span
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-surface border border-soft"
-          >
-            <span
-              class="w-2 h-2 rounded-sm"
-              style="background: var(--cyan)"
-            ></span>
-            Jimin Woo
-          </span>
           <h1
             class="mt-4 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
           >
@@ -268,41 +257,17 @@
           </h1>
           <p class="mt-3 text-sub max-w-xl text-lg leading-relaxed">
             Computer Engineering student @ <b>University of Toronto</b>
-            <br />
+            <!-- <br />
             Optimizing cloud infrastructure @
             <a class="inline-link" href="https://www.genesys.com/"
               ><b>Genesys</b></a
             >
             <br />
-            Architecting the HMI @
+            Building the HMI @
             <a class="inline-link" href="https://www.autodrive.utoronto.ca/"
               ><b>UofT's Self Driving Car Team</b></a
-            >
+            > -->
           </p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a
-              class="px-4 py-2 rounded-xl font-medium"
-              style="background: var(--cyan); color: #000"
-              href="mailto:rain.woo@mail.utoronto.ca"
-              >Email</a
-            >
-            <a
-              class="px-4 py-2 rounded-xl font-medium"
-              style="background: var(--magenta); color: #000"
-              href="https://github.com/RainWoo1"
-              target="_blank"
-              rel="noreferrer"
-              >GitHub</a
-            >
-            <a
-              class="px-4 py-2 rounded-xl font-medium"
-              style="background: var(--yellow); color: #000"
-              href="https://www.linkedin.com/in/rainjiminwoo/"
-              target="_blank"
-              rel="noreferrer"
-              >LinkedIn</a
-            >
-          </div>
         </div>
 
         <div class="shrink-0 order-1 md:order-2">
@@ -319,50 +284,43 @@
         <h2 class="font-[Chakra Petch] text-3xl mb-6">About</h2>
         <div class="max-w-4xl space-y-6 text-sub text-lg leading-relaxed">
           <p>
-            I’m a 4th-year <b>Computer Engineering</b> student at the University
-            of Toronto, and my passion lies in the fascinating fields of
-            <b>High-Performance Systems and Machine Learning.</b>
+            Hey 👋 my name is Jimin! My passion for building things drives my
+            interest in computers, software, and machine learning.
           </p>
 
           <p>
-            As an analytical mind with an insatiable curiosity for exploring
-            complex engineering concepts, I thrive in environments that push me
-            to the limits. Whether I'm refactoring core APIs or architecting 3D
-            visualization pipelines, I focus on building systems that are as
-            <b>reliable</b> as they are <b>user-first</b>.
-          </p>
-
-          <p>
-            Currently, I’m diving deep into cutting-edge development and
-            research across multiple fronts: I'm optimizing cloud scalability at
-            <b>Genesys</b>, leading the HMI team for <b>aUToronto</b>, and
-            tackling innovative problems in <b>3D scene reconstruction</b>.
-            Yeah, I keep busy!
-          </p>
-
-          <p>
-            What makes my approach unique is my background in fine arts.
-            Graduating at the rigorous Design program at
+            As a Computer Engineering student at the University of Toronto, I
+            seek to combine my determination to solve complex problems with my
+            curiosity about how and why things work. Whether it is building an
+            autonomous mobile robot, working on the Graphcal User Interface
+            system of a self-driving car, or using computer vision to solve
+            complex medical tasks, I'm always interested in learning about how I
+            can apply my knowledge to practical issues around me. Through my
+            work, I have come to understand the principles of engineering
+            design, teamwork, and above all, the importance of creating a system
+            for feedback. What makes my approach unique is my background in fine
+            arts. Graduating at the Design program at
             <b>Yewon School</b> taught me to decompose complex information into
             intuitive logical visual logic. I now apply those same principles to
             software architecture design.
           </p>
 
           <p>
-            Interested in learning more about my projects, experiences, or just
-            want to chat about the future of AI? Feel free to reach out – I’m
-            always eager to exchange ideas with fellow tech enthusiasts!
+            If you want to learn more about my experiences, discuss potential
+            collaborations, or just want to chat about things related to ML and
+            robotics, feel free to contact me!
           </p>
         </div>
       </section>
 
-      <!-- Featured Projects (with images + modal) -->
-      <section id="projects" class="py-12 md:py-16">
+      <section id="experience" class="py-12 md:py-16">
         <div class="flex items-end justify-between mb-6">
-          <h2 class="font-[Chakra Petch] text-3xl">Featured projects</h2>
+          <h2 class="font-[Chakra Petch] text-3xl">
+            Experience - Things I've worked on
+          </h2>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <template x-for="p in projects" :key="p.title">
+          <template x-for="p in experiences" :key="p.title">
             <article
               @click="open(p)"
               @keydown.enter.prevent="open(p)"
@@ -416,190 +374,6 @@
               </div>
             </article>
           </template>
-        </div>
-      </section>
-
-      <!-- Experience & Education (Alternating Timeline, Grid-Based) -->
-      <section id="experience" class="py-20">
-        <div class="max-w-6xl mx-auto px-6">
-          <h2 class="font-[Chakra Petch] text-3xl text-center mb-12">
-            Experience & Education
-          </h2>
-
-          <div class="relative">
-            <!-- Center spine -->
-            <div
-              class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[var(--border)]"
-            ></div>
-
-            <div class="space-y-12">
-              <!-- 1) Genesys (LEFT) -->
-              <div class="relative md:grid md:grid-cols-2">
-                <!-- dot -->
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <!-- card -->
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    Genesys - Software Engineering Intern
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    May 2025 – Present · Toronto, Canada
-                  </div>
-                  <p class="mt-2 text-sub">
-                    Working within the Recording team to manage the end-to-end
-                    lifecycle of voice, screen, and text recordings.
-                  </p>
-                  <p class="mt-2 text-sub">
-                    My focus is on refactoring core Go and Java APIs to ensure
-                    reliable data persistence across AWS DynamoDB and S3.
-                  </p>
-                  <p class="mt-2 text-sub">
-                    Beyond just writing code, I’m building automated validation
-                    tools in Jenkins to catch edge cases in our cloud workflows
-                    before they reach production.
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 text-sub text-sm">
-                    <li>Java, Python, Go, AWS, Kafka, Postgres, Jenkins</li>
-                  </ul>
-                </article>
-                <!-- spacer column (keeps the card on the left) -->
-                <div class="hidden md:block"></div>
-              </div>
-
-              <!-- 2) aUToronto (RIGHT) -->
-              <div class="relative md:grid md:grid-cols-2">
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <!-- empty left col to push card right -->
-                <div class="hidden md:block"></div>
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    aUToronto - Graphical User Interface Team Lead
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    Sep 2024 – Present · Toronto, Canada
-                  </div>
-                  <p class="mt-2 text-sub">
-                    I lead the development of the Human-Machine Interface (HMI)
-                    for UofT's self-driving car team. I architected the 2D and
-                    3D visualization systems that allow engineers to monitor
-                    real-time vehicle states and sensor data, contributing to
-                    our 1st place win at the AutoDrive Challenge.
-                  </p>
-                </article>
-              </div>
-
-              <!-- 3) WayCen (LEFT) -->
-              <div class="relative md:grid md:grid-cols-2">
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    WayCen - Software Engineering Intern
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    May 2023 – Aug 2023 · Seoul, Korea
-                  </div>
-                  <p class="mt-2 text-sub">
-                    Researched real-time object detection for endoscopy videos
-                    to aid early cancer detection. I built custom Python tools
-                    to automate medical data labeling and converted complex
-                    annotation formats (COCO to PASCAL VOC) to streamline the
-                    model training pipeline.
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 text-sub text-sm">
-                    <li>TensorFlow, OpenCV, NumPy, Matplotlib</li>
-                  </ul>
-                </article>
-                <div class="hidden md:block"></div>
-              </div>
-
-              <!-- 4) Artifriends (RIGHT) -->
-              <div class="relative md:grid md:grid-cols-2">
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <div class="hidden md:block"></div>
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    Artifriends - Software Engineering Intern
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    Mar 2022 – Jun 2022 · Seoul, Korea
-                  </div>
-                  <p class="mt-2 text-sub">
-                    Developed a blockchain-integrated bulletin board platform. I
-                    focused on architecting secure SQL schemas for transaction
-                    logging and deploying the full-stack system on AWS to ensure
-                    high availability and decentralized data integrity.
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 text-sub text-sm">
-                    <li>JavaScript, AWS (EC2/Route53), MySQL, Docker</li>
-                  </ul>
-                </article>
-              </div>
-
-              <!-- 5) University of Toronto (LEFT) -->
-              <div class="relative md:grid md:grid-cols-2">
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:mr-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    University of Toronto - B.A.Sc., Computer Engineering (Minor
-                    in Robotics)
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    Mar 2022 – Jul 2027 · Toronto, Canada
-                  </div>
-                  <p class="mt-2 text-sub">
-                    Dean’s Honour List, Edward S. Rogers Sr. Admission
-                    Scholarship recipient.
-                  </p>
-                </article>
-                <div class="hidden md:block"></div>
-              </div>
-
-              <!-- 6) Seoul Arts High School (RIGHT) -->
-              <div class="relative md:grid md:grid-cols-2">
-                <span
-                  class="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full bg-[var(--cyan)] ring-2 ring-white/90 dark:ring-black/50 z-10"
-                ></span>
-                <div class="hidden md:block"></div>
-                <article
-                  class="toy-card border border-soft bg-surface rounded-2xl p-5 md:ml-10"
-                >
-                  <h3 class="text-lg font-semibold">
-                    Yewon School - Fine Arts & Design
-                  </h3>
-                  <div class="text-sub text-xs mt-1">
-                    2015 – 2019 · Seoul, Korea
-                  </div>
-                  <p class="mt-2 text-sub">
-                    My engineering mindset is built on a foundation of visual
-                    logic. Graduating at the top of the Design program taught me
-                    how to decompose complex information into intuitive layouts.
-                    I now apply these principles to software system architecture
-                    and UI design as a single cohesive challenge.
-                  </p>
-                </article>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -718,18 +492,17 @@
             document.body.style.overflow = "";
           },
 
-          // Projects
-          projects: [
+          experiences: [
             {
               title: "aUToronto HMI",
               blurb:
-                "A production-grade interface for real-time autonomous vehicle telemetry and mission control.",
+                "A graphical user interface for real-time autonomous vehicle telemetry and mission control.",
               tech: ["React", "C++", "Three.js", "TypeScript", "Node.js"],
               image: "./asset/gui.png",
-              links: {
-                case: "#",
-                code: "https://github.com/RainWoo1/aUToronto-HMI",
-              },
+              // links: {
+              //   case: "#",
+              //   code: "https://github.com/RainWoo1/aUToronto-HMI",
+              // },
               details: `<strong>The Problem:</strong> During autonomous testing, engineers need to see exactly how the car perceives its environment in real-time, but standard terminal logs are difficult to interpret quickly. <br><br>
               <strong>The Solution:</strong> I developed a unified HMI featuring 2D dashboards for system health and 3D visualizations for spatial awareness.
               Using Three.js and Foxglove, I enabled the team to see obstacles, lanes, and planned paths in a high-fidelity environment.`,
@@ -745,10 +518,10 @@
               // ],
               tech: ["C++", "GTK", "TomTom API", "OSM Map"],
               image: "./asset/medipath.png",
-              links: {
-                case: "#",
-                code: "https://github.com/RainWoo1/MediPath",
-              },
+              // links: {
+              //   case: "#",
+              //   code: "https://github.com/RainWoo1/MediPath",
+              // },
               details: `<strong>The Problem:</strong> Emergency response routing requires near-instant recalculations that account for dynamic traffic density on massive city-wide datasets. <br><br>
                 <strong>The Solution:</strong> We developed a C++ engine utilizing multi-threaded A* and Dijkstra's algorithm to solve a variant of the Travelling Salesman Problem.
                 By integrating live TomTom traffic data, we optimized emergency routes to prioritize speed and reliability over simple distance.`,
@@ -758,7 +531,7 @@
               blurb:
                 "Autonomous warehouse robot achieving navigation precision via custom PID control and real-time telemetry.",
               tech: ["Python", "ESP32", "PID", "Raspberry Pi"],
-              image: "./asset/forklift.jpg",
+              image: "./asset/forklift_sim.png",
               details: `
                 <strong>The Problem:</strong> Autonomous warehouse navigation requires high-precision motor control and constant health monitoring to prevent collisions in tight spaces. <br><br>
                 <strong>The Solution:</strong> Developing the PID control firmware for precise movement and a C++ and Python-based telemetry interface that monitors the system’s health in real-time, ensuring safe and predictable navigation.
@@ -770,9 +543,9 @@
                 "Voice-driven mobile application using NLP to automate nutritional tracking and meal logging.",
               tech: ["React Native", "TypeScript", "Flask", "Pytorch", "SpaCy"],
               image: "./asset/calorieplanner.png",
-              links: {
-                code: "https://github.com/RainWoo1/daily-calorie-planner",
-              },
+              // links: {
+              //   code: "https://github.com/RainWoo1/daily-calorie-planner",
+              // },
               details: `<strong>The Problem:</strong> Manual food logging is the biggest barrier to consistent nutritional tracking due to the high friction of searching for individual items. <br><br>
               <strong>The Solution:</strong> I built a React Native app that allows users to log meals naturally through voice. I developed a Python backend using SpaCy for Named-Entity Recognition (NER)
               to extract food items and quantities from speech, mapping them to structured datasets instantly.`,
@@ -783,9 +556,9 @@
                 "Deep learning model predicting short-term stock returns using sequence-based feature engineering.",
               tech: ["PyTorch", "LSTM", "Pandas", "scikit-learn"],
               image: "./asset/stock.png",
-              links: {
-                code: "https://github.com/RainWoo1/LSTM-Stock-Portfolio-Curation",
-              },
+              // links: {
+              //   code: "https://github.com/RainWoo1/LSTM-Stock-Portfolio-Curation",
+              // },
               details: `<strong>The Problem:</strong> Financial time-series data is notoriously noisy, and many predictive models fail because they inadvertently leak future information into the training sets. <br><br>
               <strong>The Solution:</strong> I engineered an LSTM-based model to predict next-day returns.
               I focused on rigorous data preprocessing and walk-forward cross-validation to ensure no data leakage, while using technical indicators as sequence features to capture market momentum.`,
@@ -796,7 +569,7 @@
                 "AI-powered course recommendation platform for UofT students with a focus on keyboard-first UX.",
               tech: ["Next.js", "TypeScript", "AWS", "OpenAI"],
               image: "./asset/careercanvas.png",
-              links: { code: "https://devpost.com/software/gencourse" },
+              // links: { code: "https://devpost.com/software/gencourse" },
               details: `<strong>The Problem:</strong> UofT students often struggle to find courses that align with their specific career goals amidst a massive, fragmented course catalog. <br><br>
               <strong>The Solution:</strong> I built a generative AI platform that suggests academic paths based on user interests.
               To ensure the tool was efficient for power users, I implemented a keyboard-first UX (shortcuts and command palettes) and a clean, responsive interface.`,
