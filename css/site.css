@@ -1,0 +1,138 @@
+/* ==== THEME (clean light / deep dark) ==== */
+:root {
+  --cyan: #00e5ff;
+  --magenta: #ff3d7d;
+  --yellow: #ffd166;
+  --bg: #ffffff;
+  --panel: #f7f7f8;
+  --grid-dot: rgba(0, 0, 0, 0.06);
+  --text: #0b0b0c;
+  --sub: #505862;
+  --border: rgba(0, 0, 0, 0.12);
+}
+.dark {
+  --bg: #0b0b0c;
+  --panel: #111316;
+  --grid-dot: rgba(255, 255, 255, 0.08);
+  --text: #f7f8fa;
+  --sub: #9aa3af;
+  --border: rgba(255, 255, 255, 0.12);
+}
+.bg-app {
+  background-color: var(--bg);
+}
+.bg-surface {
+  background-color: var(--panel);
+}
+.text-main {
+  color: var(--text);
+}
+.text-sub {
+  color: var(--sub);
+}
+.border-soft {
+  border-color: var(--border);
+}
+.grid-bg {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--grid-dot) 1px,
+    transparent 0
+  );
+  background-size: 20px 20px;
+}
+
+.img-16x9 {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.img-16x9 > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.toy-card {
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.toy-card:hover {
+  transform: translateY(-4px) rotate(0.4deg);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+a.inline-link {
+  box-shadow: inset 0 -4px 0 0 rgba(0, 229, 255, 0.25);
+  transition: box-shadow 0.18s ease;
+}
+a.inline-link:hover {
+  box-shadow: inset 0 -10px 0 0 rgba(0, 229, 255, 0.18);
+}
+
+/* Project page markdown body */
+.prose-project h2 {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-project h3 {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-project p {
+  color: var(--sub);
+  line-height: 1.75;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+.prose-project ul,
+.prose-project ol {
+  color: var(--sub);
+  margin: 0 0 1rem 1.25rem;
+  line-height: 1.7;
+}
+.prose-project li {
+  margin-bottom: 0.35rem;
+}
+.prose-project strong {
+  color: var(--text);
+}
+.prose-project a {
+  box-shadow: inset 0 -4px 0 0 rgba(0, 229, 255, 0.25);
+}
+.prose-project a:hover {
+  box-shadow: inset 0 -10px 0 0 rgba(0, 229, 255, 0.18);
+}
+.prose-project img {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin: 1rem 0;
+  max-width: 100%;
+}
+.prose-project code {
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.prose-project pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.prose-project pre code {
+  border: none;
+  padding: 0;
+  background: transparent;
+}

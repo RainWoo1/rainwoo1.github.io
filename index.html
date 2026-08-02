@@ -22,188 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-      /* ==== THEME (clean light / deep dark) ==== */
-      :root {
-        --cyan: #00e5ff;
-        --magenta: #ff3d7d;
-        --yellow: #ffd166;
-        /* Light palette (restored) */
-        --bg: #ffffff;
-        --panel: #f7f7f8;
-        --grid-dot: rgba(0, 0, 0, 0.06);
-        --text: #0b0b0c;
-        --sub: #505862;
-        --border: rgba(0, 0, 0, 0.12);
-      }
-      .dark {
-        /* Dark palette (unchanged toy-tech) */
-        --bg: #0b0b0c;
-        --panel: #111316;
-        --grid-dot: rgba(255, 255, 255, 0.08);
-        --text: #f7f8fa;
-        --sub: #9aa3af;
-        --border: rgba(255, 255, 255, 0.12);
-      }
-      /* Utilities bound to theme vars */
-      .bg-app {
-        background-color: var(--bg);
-      }
-      .bg-surface {
-        background-color: var(--panel);
-      }
-      .text-main {
-        color: var(--text);
-      }
-      .text-sub {
-        color: var(--sub);
-      }
-      .border-soft {
-        border-color: var(--border);
-      }
-      .grid-bg {
-        background-image: radial-gradient(
-          circle at 1px 1px,
-          var(--grid-dot) 1px,
-          transparent 0
-        );
-        background-size: 20px 20px;
-      }
-
-      /* Toy-tech micro-interactions */
-      .img-16x9 {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%;
-        overflow: hidden;
-        border-radius: 16px;
-      }
-      .img-16x9 > img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .toy-card {
-        transition:
-          transform 0.18s ease,
-          box-shadow 0.18s ease;
-      }
-      .toy-card:hover {
-        transform: translateY(-4px) rotate(0.4deg);
-        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
-      }
-      a.inline-link {
-        box-shadow: inset 0 -4px 0 0 rgba(0, 229, 255, 0.25);
-        transition: box-shadow 0.18s ease;
-      }
-      a.inline-link:hover {
-        box-shadow: inset 0 -10px 0 0 rgba(0, 229, 255, 0.18);
-      }
-
-      /* Modal: rely on x-show only (fix freeze) */
-      .modal-backdrop {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 60;
-      }
-
-      /* === Alternating Timeline (center spine + left/right cards) === */
-      .timeline {
-        position: relative;
-        margin: 0 auto;
-        max-width: 1100px;
-      }
-      .timeline::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: rgba(128, 128, 128, 0.25); /* subtle spine */
-        transform: translateX(-50%);
-      }
-      .timeline-item {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin: 32px 0;
-      }
-      .timeline-node {
-        position: absolute;
-        left: 50%;
-        top: 8px;
-        transform: translateX(-50%);
-        width: 14px;
-        height: 14px;
-        border-radius: 999px;
-        background: var(--cyan, #00e5ff);
-        border: 2px solid #fff;
-        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
-        z-index: 2;
-      }
-      .timeline-card {
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        background: rgba(247, 247, 248, 1);
-        border-radius: 16px;
-        padding: 16px;
-      }
-      .dark .timeline-card {
-        border-color: rgba(255, 255, 255, 0.12);
-        background: #111316;
-      }
-      .timeline-meta {
-        font-size: 12px;
-        opacity: 0.8;
-      }
-
-      /* Alternate sides */
-      .timeline-item:nth-child(odd) .col-left {
-        order: 1;
-      }
-      .timeline-item:nth-child(odd) .col-right {
-        order: 2;
-      }
-      .timeline-item:nth-child(even) .col-left {
-        order: 2;
-      }
-      .timeline-item:nth-child(even) .col-right {
-        order: 1;
-      }
-
-      /* Mobile: stack on one side with the line at the left */
-      @media (max-width: 768px) {
-        .timeline {
-          padding-left: 20px;
-        }
-        .timeline::before {
-          left: 8px;
-          transform: none;
-        }
-        .timeline-item {
-          grid-template-columns: 1fr;
-        }
-        .timeline-node {
-          left: 8px;
-          transform: none;
-        }
-        .timeline-item .col-left,
-        .timeline-item .col-right {
-          order: initial;
-        }
-        .timeline-card {
-          margin-left: 24px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./css/site.css" />
   </head>
 
   <body
@@ -257,16 +76,6 @@
           </h1>
           <p class="mt-3 text-sub max-w-xl text-lg leading-relaxed">
             Computer Engineering student @ <b>University of Toronto</b>
-            <!-- <br />
-            Optimizing cloud infrastructure @
-            <a class="inline-link" href="https://www.genesys.com/"
-              ><b>Genesys</b></a
-            >
-            <br />
-            Building the HMI @
-            <a class="inline-link" href="https://www.autodrive.utoronto.ca/"
-              ><b>UofT's Self Driving Car Team</b></a
-            > -->
           </p>
         </div>
 
@@ -320,15 +129,11 @@
           </h2>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <template x-for="p in experiences" :key="p.title">
-            <article
-              @click="open(p)"
-              @keydown.enter.prevent="open(p)"
-              @keydown.space.prevent="open(p)"
-              tabindex="0"
-              role="button"
+          <template x-for="p in experiences" :key="p.slug">
+            <a
+              :href="'./projects/' + p.slug + '/'"
+              class="toy-card block rounded-2xl border border-soft bg-surface p-4"
               :aria-label="'Open details for ' + p.title"
-              class="toy-card cursor-pointer rounded-2xl border border-soft bg-surface p-4"
             >
               <div class="img-16x9 mb-3">
                 <img
@@ -338,41 +143,7 @@
                 />
               </div>
               <h3 class="text-lg font-semibold" x-text="p.title"></h3>
-              <p class="mt-2 text-sm text-sub" x-text="p.blurb"></p>
-              <ul class="mt-3 space-y-1 text-sm text-sub list-disc pl-5">
-                <template x-for="i in p.impact"><li x-text="i"></li></template>
-              </ul>
-              <div class="mt-3 flex flex-wrap gap-2">
-                <template x-for="t in p.tech">
-                  <span
-                    class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                    ><span x-text="t"></span
-                  ></span>
-                </template>
-              </div>
-              <div class="mt-4 flex gap-3">
-                <template x-if="p.links?.live"
-                  ><a
-                    class="inline-link text-sm"
-                    :href="p.links.live"
-                    target="_blank"
-                    rel="noreferrer"
-                    @click.stop
-                    >Live</a
-                  ></template
-                >
-                <template x-if="p.links?.code"
-                  ><a
-                    class="inline-link text-sm"
-                    :href="p.links.code"
-                    target="_blank"
-                    rel="noreferrer"
-                    @click.stop
-                    >Code</a
-                  ></template
-                >
-              </div>
-            </article>
+            </a>
           </template>
         </div>
       </section>
@@ -406,173 +177,41 @@
       </footer>
     </main>
 
-    <!-- Project Modal (x-show only + x-html) -->
-    <div
-      x-show="modalOpen"
-      x-transition.opacity
-      class="modal-backdrop"
-      @click.self="close()"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        class="bg-app text-main max-w-3xl w-[92vw] max-h-[86vh] overflow-auto rounded-2xl border border-soft shadow-2xl"
-      >
-        <div
-          class="sticky top-0 bg-surface backdrop-blur border-b border-soft px-5 py-3 flex items-center justify-between"
-        >
-          <h3 class="font-[Chakra Petch] text-xl" x-text="active?.title"></h3>
-          <button
-            @click="close()"
-            class="px-3 py-1 rounded-lg border border-soft"
-          >
-            ✕
-          </button>
-        </div>
-        <div class="p-5 space-y-4">
-          <div class="img-16x9">
-            <img :src="active?.image" :alt="active?.title + ' detail'" />
-          </div>
-          <p class="text-sub" x-html="active?.details"></p>
-          <ul class="list-disc pl-5 text-sm text-sub space-y-1">
-            <template x-for="i in active?.impact"
-              ><li x-text="i"></li
-            ></template>
-          </ul>
-          <div class="flex gap-3 pt-2">
-            <template x-if="active?.links?.live"
-              ><a
-                class="px-3 py-2 rounded-lg"
-                style="background: var(--cyan); color: #000"
-                :href="active.links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              ></template
-            >
-            <template x-if="active?.links?.code"
-              ><a
-                class="px-3 py-2 rounded-lg"
-                style="background: var(--yellow); color: #000"
-                :href="active.links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              ></template
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <script src="./js/theme.js"></script>
     <script>
       function portfolio() {
         return {
-          // Theme
-          darkMode: localStorage.getItem("theme")
-            ? localStorage.getItem("theme") === "dark"
-            : window.matchMedia("(prefers-color-scheme: dark)").matches,
-          toggleTheme() {
-            this.darkMode = !this.darkMode;
-            localStorage.setItem("theme", this.darkMode ? "dark" : "light");
-          },
-          year: new Date().getFullYear(),
-
-          // Modal
-          modalOpen: false,
-          active: null,
-          open(p) {
-            this.active = p;
-            this.modalOpen = true;
-            document.body.style.overflow = "hidden";
-          },
-          close() {
-            this.modalOpen = false;
-            this.active = null;
-            document.body.style.overflow = "";
-          },
-
+          ...siteTheme(),
           experiences: [
             {
-              title: "aUToronto HMI",
-              blurb:
-                "A graphical user interface for real-time autonomous vehicle telemetry and mission control.",
-              tech: ["React", "C++", "Three.js", "TypeScript", "Node.js"],
-              image: "./asset/gui.png",
-              // links: {
-              //   case: "#",
-              //   code: "https://github.com/RainWoo1/aUToronto-HMI",
-              // },
-              details: `<strong>The Problem:</strong> During autonomous testing, engineers need to see exactly how the car perceives its environment in real-time, but standard terminal logs are difficult to interpret quickly. <br><br>
-              <strong>The Solution:</strong> I developed a unified HMI featuring 2D dashboards for system health and 3D visualizations for spatial awareness.
-              Using Three.js and Foxglove, I enabled the team to see obstacles, lanes, and planned paths in a high-fidelity environment.`,
+              slug: "autoronto",
+              title: "aUToronto",
+              image: "./asset/gui%20interface%20cdr%20figure%201.png",
             },
             {
-              title: "MediPath",
-              blurb:
-                "Emergency routing mapping software using multi-threaded A* pathfinding.",
-              // impact: [
-              //   "Low-distraction UI",
-              //   "Faster recalculation",
-              //   "Improved response times",
-              // ],
-              tech: ["C++", "GTK", "TomTom API", "OSM Map"],
-              image: "./asset/medipath.png",
-              // links: {
-              //   case: "#",
-              //   code: "https://github.com/RainWoo1/MediPath",
-              // },
-              details: `<strong>The Problem:</strong> Emergency response routing requires near-instant recalculations that account for dynamic traffic density on massive city-wide datasets. <br><br>
-                <strong>The Solution:</strong> We developed a C++ engine utilizing multi-threaded A* and Dijkstra's algorithm to solve a variant of the Travelling Salesman Problem.
-                By integrating live TomTom traffic data, we optimized emergency routes to prioritize speed and reliability over simple distance.`,
-            },
-            {
+              slug: "forklift",
               title: "Autonomous Forklift System",
-              blurb:
-                "Autonomous warehouse robot achieving navigation precision via custom PID control and real-time telemetry.",
-              tech: ["Python", "ESP32", "PID", "Raspberry Pi"],
               image: "./asset/forklift_sim.png",
-              details: `
-                <strong>The Problem:</strong> Autonomous warehouse navigation requires high-precision motor control and constant health monitoring to prevent collisions in tight spaces. <br><br>
-                <strong>The Solution:</strong> Developing the PID control firmware for precise movement and a C++ and Python-based telemetry interface that monitors the system’s health in real-time, ensuring safe and predictable navigation.
-              `,
             },
             {
+              slug: "medipath",
+              title: "MediPath",
+              image: "./asset/medipath.png",
+            },
+            {
+              slug: "calorie-planner",
               title: "Daily Calorie Planner",
-              blurb:
-                "Voice-driven mobile application using NLP to automate nutritional tracking and meal logging.",
-              tech: ["React Native", "TypeScript", "Flask", "Pytorch", "SpaCy"],
               image: "./asset/calorieplanner.png",
-              // links: {
-              //   code: "https://github.com/RainWoo1/daily-calorie-planner",
-              // },
-              details: `<strong>The Problem:</strong> Manual food logging is the biggest barrier to consistent nutritional tracking due to the high friction of searching for individual items. <br><br>
-              <strong>The Solution:</strong> I built a React Native app that allows users to log meals naturally through voice. I developed a Python backend using SpaCy for Named-Entity Recognition (NER)
-              to extract food items and quantities from speech, mapping them to structured datasets instantly.`,
             },
             {
+              slug: "stock",
               title: "LSTM Stock Portfolio Curation",
-              blurb:
-                "Deep learning model predicting short-term stock returns using sequence-based feature engineering.",
-              tech: ["PyTorch", "LSTM", "Pandas", "scikit-learn"],
               image: "./asset/stock.png",
-              // links: {
-              //   code: "https://github.com/RainWoo1/LSTM-Stock-Portfolio-Curation",
-              // },
-              details: `<strong>The Problem:</strong> Financial time-series data is notoriously noisy, and many predictive models fail because they inadvertently leak future information into the training sets. <br><br>
-              <strong>The Solution:</strong> I engineered an LSTM-based model to predict next-day returns.
-              I focused on rigorous data preprocessing and walk-forward cross-validation to ensure no data leakage, while using technical indicators as sequence features to capture market momentum.`,
             },
             {
+              slug: "career-canvas",
               title: "Career Canvas",
-              blurb:
-                "AI-powered course recommendation platform for UofT students with a focus on keyboard-first UX.",
-              tech: ["Next.js", "TypeScript", "AWS", "OpenAI"],
               image: "./asset/careercanvas.png",
-              // links: { code: "https://devpost.com/software/gencourse" },
-              details: `<strong>The Problem:</strong> UofT students often struggle to find courses that align with their specific career goals amidst a massive, fragmented course catalog. <br><br>
-              <strong>The Solution:</strong> I built a generative AI platform that suggests academic paths based on user interests.
-              To ensure the tool was efficient for power users, I implemented a keyboard-first UX (shortcuts and command palettes) and a clean, responsive interface.`,
             },
           ],
         };

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project — Jimin Woo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../css/site.css" />
+  </head>
+
+  <body
+    x-data="projectPage()"
+    x-init="init()"
+    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
+    class="font-[Inter] min-h-screen"
+  >
+    <header
+      class="sticky top-0 z-40 backdrop-blur"
+      style="
+        background: color-mix(in oklab, var(--panel) 80%, transparent);
+        border-bottom: 1px solid var(--border);
+      "
+    >
+      <nav
+        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
+      >
+        <a
+          href="../../index.html"
+          class="font-[Chakra Petch] text-xl tracking-wide"
+          >JIMIN WOO</a
+        >
+        <div class="flex items-center gap-4 text-sm">
+          <a href="../../index.html#experience" class="hover:opacity-80"
+            >← Experience</a
+          >
+          <button
+            @click="toggleTheme"
+            class="px-3 py-1 rounded-lg border border-soft"
+            aria-label="Toggle theme"
+          >
+            ☀︎/☾
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
+      <template x-if="loading">
+        <p class="text-sub">Loading…</p>
+      </template>
+
+      <template x-if="!loading && error">
+        <p class="text-sub" x-text="error"></p>
+      </template>
+
+      <template x-if="!loading && !error">
+        <article>
+          <a
+            href="../../index.html#experience"
+            class="inline-link text-sm text-sub"
+            >← Back to experience</a
+          >
+
+          <h1
+            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
+            x-text="title"
+          ></h1>
+
+          <p
+            class="mt-4 text-lg text-sub leading-relaxed"
+            x-text="blurb"
+            x-show="blurb"
+          ></p>
+
+          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
+            <template x-for="t in tech" :key="t">
+              <span
+                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
+                x-text="t"
+              ></span>
+            </template>
+          </div>
+
+          <div class="img-16x9 mt-8" x-show="image">
+            <img :src="image" :alt="title + ' preview'" />
+          </div>
+
+          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
+            <template x-if="links.live">
+              <a
+                class="inline-link text-sm"
+                :href="links.live"
+                target="_blank"
+                rel="noreferrer"
+                >Live</a
+              >
+            </template>
+            <template x-if="links.code">
+              <a
+                class="inline-link text-sm"
+                :href="links.code"
+                target="_blank"
+                rel="noreferrer"
+                >Code</a
+              >
+            </template>
+          </div>
+
+          <div class="prose-project mt-10" x-html="bodyHtml"></div>
+        </article>
+      </template>
+    </main>
+
+    <footer class="py-10 border-t border-soft text-sm text-sub">
+      <div
+        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
+      >
+        <p>© <span x-text="year"></span> Jimin Woo</p>
+        <div class="flex gap-4">
+          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
+            >Email</a
+          >
+          <a
+            class="inline-link"
+            href="https://github.com/RainWoo1"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+          <a
+            class="inline-link"
+            href="https://www.linkedin.com/in/rainjiminwoo/"
+            target="_blank"
+            rel="noreferrer"
+            >LinkedIn</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/project-page.js"></script>
+  </body>
+</html>
