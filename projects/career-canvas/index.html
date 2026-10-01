@@ -1,155 +1,17 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
-
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
-
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
-
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
-
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>Career Canvas — Jimin Woo</title><meta name="description" content="A course-discovery project connecting student interests with possible academic paths."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="career-canvas"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Product &amp; interface</p><h1>Career Canvas</h1><p class="project-deck">A course-discovery project connecting student interests with possible academic paths.</p><div class="project-tags"><span>Next.js</span><span>TypeScript</span><span>AWS</span><span>OpenAI</span></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">06 / 07</p><ul><li>Student interests</li><li>Course discovery</li><li>Interface design</li></ul><p class="project-status">Student project</p></aside></header>
+<figure class="project-cover"><img src="../../asset/careercanvas.png" alt="Career Canvas project preview"><figcaption>Career Canvas · Project image · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>Starting with an interest</a><a href="#section-2"><span>02</span>A suggestion is a starting point</a><a href="#section-3"><span>03</span>Interface decisions</a><a href="#section-4"><span>04</span>Keeping the scope clear</a></div></aside><article class="project-content" id="project-content"><section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>Starting with an interest</h2><p>Career Canvas explores course discovery for University of Toronto students. Instead of beginning with a long catalogue, the idea is to start with a student&#39;s interests and possible career direction, then suggest relevant academic paths.</p>
+<p>The project uses Next.js and TypeScript for its interface, with AI-assisted recommendations. The aim is to make the initial exploration easier, while leaving the student in control of the final choices.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>A suggestion is a starting point</h2><p>Course planning involves several kinds of information: what a student wants to learn, what a course covers, and what fits into a degree. Career Canvas focuses on connecting interests to suggestions, rather than presenting a list of technologies as the product.</p>
+<p>The useful output is a set of options a student can inspect and compare. Explaining why a course relates to an interest is just as valuable as naming it.</p>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>Interface decisions</h2><p>The interface emphasizes a responsive layout and keyboard-first interactions, including shortcuts and a command palette. These support a workflow where a student can search, explore, and revisit options with fewer repeated clicks.</p>
+<p>The interface should keep the student&#39;s goal visible while they move between suggestions. A clear recommendation and an obvious next action are more useful than a dense wall of generated text.</p>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>Keeping the scope clear</h2><p>Career Canvas is a course-exploration tool. Its suggestions are not a substitute for checking the official course catalogue and degree requirements.</p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../stock/"><small>← PREVIOUS PROJECT</small><strong>LSTM Portfolio Curation</strong></a><a href="../calorie-planner/"><small>NEXT PROJECT →</small><strong>Daily Calorie Planner</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

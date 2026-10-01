@@ -1,0 +1,1 @@
+{"name":"jimin-portfolio","private":true,"type":"module","scripts":{"build":"node build-projects.mjs"},"devDependencies":{"marked":"17.0.5"}}

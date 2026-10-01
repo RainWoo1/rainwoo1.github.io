@@ -1,6 +1,8 @@
 ---
 title: Career Canvas
-blurb: AI-powered course recommendation platform for UofT students with a focus on keyboard-first UX.
+blurb: A course-discovery project connecting student interests with possible academic paths.
+category: Product & interface
+status: Student project
 image: ../../asset/careercanvas.png
 tech:
   - Next.js
@@ -9,10 +11,24 @@ tech:
   - OpenAI
 ---
 
-## The Problem
+## Starting with an interest
 
-UofT students often struggle to find courses that align with their specific career goals amidst a massive, fragmented course catalog.
+Career Canvas explores course discovery for University of Toronto students. Instead of beginning with a long catalogue, the idea is to start with a student's interests and possible career direction, then suggest relevant academic paths.
 
-## The Solution
+The project uses Next.js and TypeScript for its interface, with AI-assisted recommendations. The aim is to make the initial exploration easier, while leaving the student in control of the final choices.
 
-I built a generative AI platform that suggests academic paths based on user interests. To ensure the tool was efficient for power users, I implemented a keyboard-first UX (shortcuts and command palettes) and a clean, responsive interface.
+## A suggestion is a starting point
+
+Course planning involves several kinds of information: what a student wants to learn, what a course covers, and what fits into a degree. Career Canvas focuses on connecting interests to suggestions, rather than presenting a list of technologies as the product.
+
+The useful output is a set of options a student can inspect and compare. Explaining why a course relates to an interest is just as valuable as naming it.
+
+## Interface decisions
+
+The interface emphasizes a responsive layout and keyboard-first interactions, including shortcuts and a command palette. These support a workflow where a student can search, explore, and revisit options with fewer repeated clicks.
+
+The interface should keep the student's goal visible while they move between suggestions. A clear recommendation and an obvious next action are more useful than a dense wall of generated text.
+
+## Keeping the scope clear
+
+Career Canvas is a course-exploration tool. Its suggestions are not a substitute for checking the official course catalogue and degree requirements.

@@ -1,155 +1,80 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>Dynamic Memory Allocator — Jimin Woo</title><meta name="description" content="A custom memory allocator in C exploring allocation speed, fragmentation, and memory utilization."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="memallocator"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Systems programming</p><h1>Dynamic Memory Allocator</h1><p class="project-deck">A custom memory allocator in C exploring allocation speed, fragmentation, and memory utilization.</p><div class="project-tags"><span>C</span><span>Trace benchmarking</span></div><div class="project-links"><a href="https://github.com/RainWoo1/memalloc" target="_blank" rel="noreferrer">Explore the code ↗</a></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">02 / 07</p><ul><li>Nine free lists</li><li>Splitting + coalescing</li><li>Trace benchmarks</li></ul><p class="project-status">Learning project</p></aside></header>
+<figure class="project-cover"><img src="../../asset/memallocator/per-chunk-size-allocator-2.png" alt="Dynamic Memory Allocator project preview"><figcaption>Dynamic Memory Allocator · Project image · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>Below the API</a><a href="#section-2"><span>02</span>Organizing the heap</a><a href="#section-3"><span>03</span>Implementation</a><a href="#section-4"><span>04</span>Coalescing and Fragmentation</a><a href="#section-5"><span>05</span>Optimizing `realloc`</a><a href="#section-6"><span>06</span>Small Allocation Experiment</a><a href="#section-7"><span>07</span>Testing and validation</a><a href="#section-8"><span>08</span>What I Learned</a></div></aside><article class="project-content" id="project-content"><!-- The Problem
+Design Overview
+Implementation
+Key Design Decisions
+Testing & Validation
+Trade-offs / What I Learned -->
 
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
 
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
+<section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>Below the API</h2><p><code>malloc()</code> looks like a simple function call, but underneath it an allocator has to decide where to place memory, how to reuse freed blocks, and how to prevent the heap from becoming fragmented over time.</p>
+<p>I wanted to understand those decisions beyond the API, so I implemented my own versions of <code>malloc</code>, <code>free</code>, and <code>realloc</code> and experimented with how different allocation policies affect memory utilization and performance.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>Organizing the heap</h2><p>The allocator manages the heap as a sequence of variable-sized blocks. Each block stores metadata describing its size and whether it is currently allocated.</p>
+<p>Free blocks are organized into nine <strong>segregated free lists</strong> based on their size. Instead of scanning every unused block in the heap, an allocation request begins searching in the smallest size class that could satisfy it and only moves to larger classes when necessary.</p>
+<p>For example, a request that needs a roughly 100-byte block begins searching the <code>&lt;=128 B</code> class rather than examining unrelated multi-kilobyte blocks.</p>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>Implementation</h2><p>Each normal heap block contains a header and footer storing its size and allocation state. Free blocks additionally use their payload space to store <code>next</code> and <code>previous</code> pointers, forming doubly linked free lists.</p>
+<p>Blocks are kept 16-byte aligned, so requested sizes are rounded up to a multiple of 16 after accounting for allocator metadata. This keeps returned addresses suitably aligned while also making block traversal predictable.</p>
+<p>When <code>malloc</code> receives a request, the allocator:</p>
+<ol>
+<li>Computes the aligned block size including metadata.</li>
+<li>Chooses the corresponding free-list size class.</li>
+<li>Searches for a sufficiently large free block.</li>
+<li>Splits the block if the unused remainder is large enough to remain useful.</li>
+<li>Extends the heap if no existing block can satisfy the request.</li>
+</ol>
+<p>For example:</p>
+<div align="left">
+  <img src="../../asset/memallocator/malloc.jpeg" class="allocator-figure" alt="malloc">
+  <!-- <p>malloc</p> -->
+</div>
 
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
+<p>The remaining free portion is inserted back into the appropriate size class instead of being wasted inside the allocated block.</p>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>Coalescing and Fragmentation</h2><p>Repeated allocations and frees can leave the heap broken into many small pieces even when the total amount of free memory is large.</p>
+<p>To reduce this external fragmentation, <code>free</code> checks the physical blocks immediately before and after the released block. Adjacent free blocks are merged into a larger block before being returned to the free list.</p>
+<div align="left">
+  <img src="../../asset/memallocator/coalescing.jpeg" class="allocator-figure" alt="coalescing">
+</div>
 
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
+<p>The allocator handles all four neighboring states: both neighbors allocated, only the previous block free, only the next block free, or both neighbors free.</p>
+</section>
+<section class="project-section" id="section-5"><span class="section-index" aria-hidden="true">05</span><h2>Optimizing `realloc`</h2><p>A simple implementation of <code>realloc</code> can always allocate a new block, copy the old payload, and free the original block. That works, but repeatedly growing an object can cause unnecessary memory copies.</p>
+<p>My allocator first tries to grow the existing block in place.</p>
+<p>If the block immediately after it is free, that memory can be absorbed into the current allocation. If the block reaches the end of the heap, the heap can be extended directly while preserving the same pointer.</p>
+<p>Only when the block cannot grow in place does the allocator fall back to:</p>
+<p>Allocate a replacement block, copy the payload, then release the original block.</p>
+<p>Relocated <code>realloc</code> blocks are placed at the high end of a free block, leaving the remainder before the new allocation. This changes which physical neighbors can be used for later growth; the benefit depends on the surrounding heap layout.</p>
+</section>
+<section class="project-section" id="section-6"><span class="section-index" aria-hidden="true">06</span><h2>Small Allocation Experiment</h2><p>Small allocations expose another allocator trade-off: metadata can become a significant fraction of the total memory usage.</p>
+<p>A normal minimum-sized block in this allocator is 32 bytes, so storing a 16-byte object individually can double its effective memory footprint.</p>
+<p>I experimented with a small-object path that packs fixed-size allocations into a shared block. It is enabled when the first allocation in a trace is tiny; traces starting with a larger allocation stay on the normal path:</p>
+<div align="left">
+  <img src="../../asset/memallocator/small_allocation_experiment.jpeg" class="allocator-figure" alt="Packed small allocations in a shared block">
+</div>
 
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+<p>The packed slots do not require their own header and footer, reducing metadata overhead for workloads containing many tiny objects.</p>
+<p>This optimization is workload-specific rather than a general replacement for the normal allocation path, but it helped me explore the trade-off between allocator simplicity and utilization.</p>
+</section>
+<section class="project-section" id="section-7"><span class="section-index" aria-hidden="true">07</span><h2>Testing and validation</h2><p>From <code>src</code>, <code>make</code> builds the benchmark and <code>./bench -v</code> reports each trace. <code>./bench -l</code> also measures libc allocation on those traces. Utilization is peak live payload divided by peak heap size; throughput is allocator operations per second. These are workload measurements, not a claim that this allocator outperforms a production allocator in general.</p>
+<p>I evaluated the allocator using the repository’s trace benchmark driver across traces containing:</p>
+<ul>
+<li>random allocation and free patterns</li>
+<li>interleaved small and large allocations</li>
+<li>repeated <code>realloc</code> operations</li>
+<li>coalescing-heavy workloads</li>
+<li>large numbers of small objects</li>
+</ul>
+<p>The driver exercises both allocator correctness and performance-related behavior such as memory utilization and allocation throughput.</p>
+<p>I also implemented a heap consistency checker that verifies allocator invariants such as matching headers and footers, correct size-class membership, valid free-list links, successful coalescing, and valid heap boundaries.</p>
+</section>
+<section class="project-section" id="section-8"><span class="section-index" aria-hidden="true">08</span><h2>What I Learned</h2><p>The interesting part of building an allocator was not implementing <code>malloc</code> itself, but seeing how small policy decisions change the behavior of the entire heap.</p>
+<p>A more aggressive search policy can reduce fragmentation but increase allocation latency. Splitting blocks improves utilization but creates more free-list bookkeeping. Coalescing recovers large contiguous regions but adds work to <code>free</code>. Optimizing <code>realloc</code> can avoid expensive memory copies, but requires reasoning about the physical layout of neighboring blocks.</p>
+<p>Implementing these mechanisms made the behavior hidden behind <code>malloc</code>, <code>free</code>, and <code>realloc</code> much more concrete and gave me a better understanding of how system software trades CPU time, metadata overhead, locality, and fragmentation against one another.</p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../autoronto/"><small>← PREVIOUS PROJECT</small><strong>aUToronto HMI</strong></a><a href="../forklift/"><small>NEXT PROJECT →</small><strong>Autonomous Forklift</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

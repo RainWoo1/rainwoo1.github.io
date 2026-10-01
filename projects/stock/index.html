@@ -1,155 +1,49 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
-
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
-
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
-
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
-
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>LSTM Portfolio Curation — Jimin Woo</title><meta name="description" content="An experiment with financial fundamentals, sequence models, and company embeddings."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="stock"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Machine learning</p><h1>LSTM Portfolio Curation</h1><p class="project-deck">An experiment with financial fundamentals, sequence models, and company embeddings.</p><div class="project-tags"><span>PyTorch</span><span>LSTM</span><span>Pandas</span><span>scikit-learn</span></div><div class="project-links"><a href="https://github.com/RainWoo1/LSTM-Stock-Portfolio-Curation" target="_blank" rel="noreferrer">Explore the code ↗</a></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">05 / 07</p><ul><li>Financial sequences</li><li>Company embeddings</li><li>Model evaluation</li></ul><p class="project-status">Research project</p></aside></header>
+<figure class="project-cover"><img src="../../asset/stock.png" alt="LSTM Portfolio Curation project preview"><figcaption>LSTM Portfolio Curation · Project image · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>Looking beyond price alone</a><a href="#section-2"><span>02</span>Preparing company histories</a><a href="#section-3"><span>03</span>One model, many companies</a><a href="#section-4"><span>04</span>Evaluation and its limits</a><a href="#section-5"><span>05</span>What I took from it</a></div></aside><article class="project-content" id="project-content"><section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>Looking beyond price alone</h2><p>Our starting question was whether a sequence model could help analyze company fundamentals for medium- to longer-term portfolio curation. We wanted to study financial history rather than frame the project as a next-day trading system.</p>
+<p>The repository contains data-processing notebooks, LSTM experiments, a Random Forest notebook, and saved model checkpoints. It is a modeling project, with several iterations rather than one production investment pipeline.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>Preparing company histories</h2><p>The data is organized into a CSV per ticker. The notebooks select financial features, handle missing values, normalize inputs, and build windows of observations. A window becomes the model input; a subsequent return value becomes its target.</p>
+<p>The imputation experiments include mean, median, and mode-based filling. Other versions use zero filling. These choices matter because missing financial observations can change both the input distribution and which companies remain in the dataset.</p>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>One model, many companies</h2><p>The models pair financial observations with a learned company embedding. That embedding is repeated across the input window and concatenated with the feature vector at each time step. It gives a shared sequence model a way to distinguish companies without training a separate network for every ticker.</p>
+<p>The notebooks explore stacked LSTMs, bidirectional variants, dropout, and attention. In the attention-based variants, the model combines information from several time steps before producing a scalar prediction.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Financial feature window</td>
+<td>Represent a company&#39;s recent history</td>
+</tr>
+<tr>
+<td>Company embedding</td>
+<td>Add a learned representation of company identity</td>
+</tr>
+<tr>
+<td>LSTM</td>
+<td>Process the sequence</td>
+</tr>
+<tr>
+<td>Attention in selected variants</td>
+<td>Weight information across the window</td>
+</tr>
+<tr>
+<td>Output layer</td>
+<td>Predict the return target</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>Evaluation and its limits</h2><p>The notebooks track training and validation loss and R². They also inspect return predictions using a negative, stable, or positive classification threshold. Some experiments reserve 2023 for testing after using earlier years for training and validation.</p>
+<p>The implementation is not uniformly walk-forward: some versions shuffle overlapping windows into training and validation sets, and preprocessing differs between iterations. I would not describe these experiments as proving leakage-free forecasting or reliable investment performance.</p>
+<p>A stronger next evaluation would use chronological splits, fit all preprocessing on training data, preserve the same sequence construction at inference, and compare portfolio outcomes after transaction costs.</p>
+</section>
+<section class="project-section" id="section-5"><span class="section-index" aria-hidden="true">05</span><h2>What I took from it</h2><p>The most useful part was working through the entire modeling path: company-level data, missing values, sequence construction, model architecture, and evaluation. A more complicated network does not resolve an inconsistent data split. The experiment made that distinction much clearer.</p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../medipath/"><small>← PREVIOUS PROJECT</small><strong>MediPath</strong></a><a href="../career-canvas/"><small>NEXT PROJECT →</small><strong>Career Canvas</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

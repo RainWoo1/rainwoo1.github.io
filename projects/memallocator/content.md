@@ -1,13 +1,15 @@
 ---
 title: Dynamic Memory Allocator
 blurb: A custom memory allocator in C exploring allocation speed, fragmentation, and memory utilization.
-# image: ../../asset/medipath.png
+image: ../../asset/memallocator/per-chunk-size-allocator-2.png
+category: Systems programming
+status: Learning project
+code: https://github.com/RainWoo1/memalloc
 tech:
   - C
-  - Systems Programming
+  - Trace benchmarking
 ---
 
-https://github.com/RainWoo1/memalloc
 
 <!-- The Problem
 Design Overview
@@ -16,13 +18,13 @@ Key Design Decisions
 Testing & Validation
 Trade-offs / What I Learned -->
 
-## The Problem
+## Below the API
 
 `malloc()` looks like a simple function call, but underneath it an allocator has to decide where to place memory, how to reuse freed blocks, and how to prevent the heap from becoming fragmented over time.
 
 I wanted to understand those decisions beyond the API, so I implemented my own versions of `malloc`, `free`, and `realloc` and experimented with how different allocation policies affect memory utilization and performance.
 
-## Design Overview
+## Organizing the heap
 
 The allocator manages the heap as a sequence of variable-sized blocks. Each block stores metadata describing its size and whether it is currently allocated.
 
@@ -47,7 +49,7 @@ When `malloc` receives a request, the allocator:
 For example:
 
 <div align="left">
-  <img src="../../asset/memallocator/malloc.jpeg" width=30% alt="malloc">
+  <img src="../../asset/memallocator/malloc.jpeg" class="allocator-figure" alt="malloc">
   <!-- <p>malloc</p> -->
 </div>
 
@@ -60,7 +62,7 @@ Repeated allocations and frees can leave the heap broken into many small pieces 
 To reduce this external fragmentation, `free` checks the physical blocks immediately before and after the released block. Adjacent free blocks are merged into a larger block before being returned to the free list.
 
 <div align="left">
-  <img src="../../asset/memallocator/coalescing.jpeg" width=30% alt="coalescing">
+  <img src="../../asset/memallocator/coalescing.jpeg" class="allocator-figure" alt="coalescing">
 </div>
 
 The allocator handles all four neighboring states: both neighbors allocated, only the previous block free, only the next block free, or both neighbors free.
@@ -75,15 +77,9 @@ If the block immediately after it is free, that memory can be absorbed into the 
 
 Only when the block cannot grow in place does the allocator fall back to:
 
-```text
-allocate new block
-        ↓
-copy payload
-        ↓
-free old block
-```
+Allocate a replacement block, copy the payload, then release the original block.
 
-I also changed how relocated `realloc` blocks are placed so that free space is preferentially left before the new allocation rather than after it. This makes repeated future growth more likely to occur in place.
+Relocated `realloc` blocks are placed at the high end of a free block, leaving the remainder before the new allocation. This changes which physical neighbors can be used for later growth; the benefit depends on the surrounding heap layout.
 
 ## Small Allocation Experiment
 
@@ -91,19 +87,21 @@ Small allocations expose another allocator trade-off: metadata can become a sign
 
 A normal minimum-sized block in this allocator is 32 bytes, so storing a 16-byte object individually can double its effective memory footprint.
 
-I experimented with a small-object path that packs multiple fixed-size allocations into a larger shared page:
+I experimented with a small-object path that packs fixed-size allocations into a shared block. It is enabled when the first allocation in a trace is tiny; traces starting with a larger allocation stay on the normal path:
 
 <div align="left">
-  <img src="../../asset/memallocator/small_allocation_experiment.jpeg" width=30% alt="coalescing">
+  <img src="../../asset/memallocator/small_allocation_experiment.jpeg" class="allocator-figure" alt="Packed small allocations in a shared block">
 </div>
 
 The packed slots do not require their own header and footer, reducing metadata overhead for workloads containing many tiny objects.
 
 This optimization is workload-specific rather than a general replacement for the normal allocation path, but it helped me explore the trade-off between allocator simplicity and utilization.
 
-## Testing and Validation
+## Testing and validation
 
-I evaluated the allocator using the provided malloc driver across traces containing:
+From `src`, `make` builds the benchmark and `./bench -v` reports each trace. `./bench -l` also measures libc allocation on those traces. Utilization is peak live payload divided by peak heap size; throughput is allocator operations per second. These are workload measurements, not a claim that this allocator outperforms a production allocator in general.
+
+I evaluated the allocator using the repository’s trace benchmark driver across traces containing:
 
 - random allocation and free patterns
 - interleaved small and large allocations
@@ -122,3 +120,4 @@ The interesting part of building an allocator was not implementing `malloc` itse
 A more aggressive search policy can reduce fragmentation but increase allocation latency. Splitting blocks improves utilization but creates more free-list bookkeeping. Coalescing recovers large contiguous regions but adds work to `free`. Optimizing `realloc` can avoid expensive memory copies, but requires reasoning about the physical layout of neighboring blocks.
 
 Implementing these mechanisms made the behavior hidden behind `malloc`, `free`, and `realloc` much more concrete and gave me a better understanding of how system software trades CPU time, metadata overhead, locality, and fragmentation against one another.
+

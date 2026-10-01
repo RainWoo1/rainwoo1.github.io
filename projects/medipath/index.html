@@ -1,155 +1,47 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>MediPath — Jimin Woo</title><meta name="description" content="A desktop map for finding hospitals, inspecting traffic, and planning a route."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="medipath"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Maps &amp; routing</p><h1>MediPath</h1><p class="project-deck">A desktop map for finding hospitals, inspecting traffic, and planning a route.</p><div class="project-tags"><span>C++</span><span>GTK</span><span>EZGL</span><span>OpenStreetMap</span><span>TomTom API</span></div><div class="project-links"><a href="https://github.com/RainWoo1/MediPath" target="_blank" rel="noreferrer">Explore the code ↗</a></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">04 / 07</p><ul><li>Graph search</li><li>Traffic overlays</li><li>Desktop map interface</li></ul><p class="project-status">Team project</p></aside></header>
+<figure class="project-cover"><img src="../../asset/medipath.png" alt="MediPath project preview"><figcaption>MediPath · Project image · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>A map with a specific job</a><a href="#section-2"><span>02</span>From streets to a route</a><a href="#section-3"><span>03</span>Making the map usable</a><a href="#section-4"><span>04</span>What the prototype demonstrates</a><a href="#section-5"><span>05</span>The part I find interesting</a></div></aside><article class="project-content" id="project-content"><section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>A map with a specific job</h2><p>MediPath is a mapping project built around an ambulance driver&#39;s workflow: find a hospital or pharmacy, choose a destination, and read the route without digging through several different views. We used C++ for the map and pathfinding engine, with GTK and EZGL for the desktop interface.</p>
+<p>We wanted useful geographic information to be easy to act on. A route is only part of that experience; the destination details, search controls, and map rendering matter too.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>From streets to a route</h2><p>The routing implementation uses A* and multi-Dijkstra algorithms, with multithreading for pathfinding work. The resulting path is highlighted on the map, and the navigation panel shows travel time and directions.</p>
+<p>A* directs a search toward the destination using a heuristic. Dijkstra explores paths by accumulated cost. Working with both made the relationship between the graph representation, route cost, and search strategy concrete.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Input</th>
+<th>What the interface shows</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Street or intersection search</td>
+<td>A highlighted route and navigation instructions</td>
+</tr>
+<tr>
+<td>Intersections selected on the map</td>
+<td>A route between the chosen points</td>
+</tr>
+<tr>
+<td>Hospital or pharmacy selection</td>
+<td>Location details, including available hours and phone information</td>
+</tr>
+<tr>
+<td>Traffic display enabled</td>
+<td>Traffic speed information on the visible map</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>Making the map usable</h2><p>Hospital and pharmacy layers can be toggled independently, so they do not always compete with the road network. Clicking a location opens its details. Users can search through the navigation panel or select intersections directly on the map.</p>
+<p>TomTom traffic data adds another layer of context. The interface displays traffic with a red, yellow, and green speed scale. The overlay lets a driver inspect road conditions alongside the route.</p>
+<figure><img src="../../asset/medipath/trafficdata.png" alt="MediPath map with colored traffic overlays" loading="lazy"><figcaption>Traffic displayed alongside the map. Image from our project repository.</figcaption></figure>
 
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
-
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
-
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
-
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>What the prototype demonstrates</h2><p>The repository documents hospital and pharmacy discovery, text search, direct map selection, route instructions, traffic overlays, and a night mode. It also includes interface screenshots and a traffic demonstration video.</p>
+<p>The screenshots and demo document the interface workflow. The project does not include a benchmark of routing performance or an emergency-response field trial.</p>
+</section>
+<section class="project-section" id="section-5"><span class="section-index" aria-hidden="true">05</span><h2>The part I find interesting</h2><p>This project puts algorithms and interface design in the same loop. Computing a path is useful only if someone can find the destination, understand the result, and see enough context to make a decision. That connection is what makes a map more interesting to me than a pathfinding algorithm on its own.</p>
+<p><a href="https://www.figma.com/design/qTqsYCIitYf9UeCHXm1Det/ECE297-Design-Components">Explore the interface prototype in Figma ↗</a></p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../forklift/"><small>← PREVIOUS PROJECT</small><strong>Autonomous Forklift</strong></a><a href="../stock/"><small>NEXT PROJECT →</small><strong>LSTM Portfolio Curation</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

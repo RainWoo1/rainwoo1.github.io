@@ -1,155 +1,33 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>aUToronto HMI — Jimin Woo</title><meta name="description" content="Maps, vehicle state, and diagnostics for an autonomous car’s in-cabin interface."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="autoronto"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Robotics infrastructure</p><h1>aUToronto HMI</h1><p class="project-deck">Maps, vehicle state, and diagnostics for an autonomous car’s in-cabin interface.</p><div class="project-tags"><span>React</span><span>C++</span><span>ROS</span><span>Three.js</span><span>Foxglove</span><span>Mapbox GL</span></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">01 / 07</p><ul><li>Vehicle telemetry</li><li>2D + 3D visualization</li><li>Tablet rendering</li></ul><p class="project-status">Vehicle integration · team project</p></aside></header>
+<figure class="project-cover"><img src="../../asset/autoronto/artemis.jpg" alt="aUToronto HMI project preview"><figcaption>aUToronto HMI · Project image · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>An interface inside the car</a><a href="#section-2"><span>02</span>From messages to a view</a><a href="#section-3"><span>03</span>Two views of the same vehicle</a><a href="#section-4"><span>04</span>When incoming data outruns rendering</a><a href="#section-5"><span>05</span>Health and operator controls</a><a href="#section-6"><span>06</span>What this changed about my approach</a></div></aside><article class="project-content" id="project-content"><section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>An interface inside the car</h2><p><a href="https://www.autodrive.utoronto.ca/">aUToronto</a> is the University of Toronto&#39;s self-driving car team. Our HMI brings vehicle state, navigation, perception, and stack health into a web interface on an in-cabin tablet.</p>
+<p>I worked on the GUI sub-team and later led it. My work included 2D map interactions, 3D perception visualization, and integration with the vehicle software. The interface serves both passengers who need a clear view of the trip and engineers checking behavior during vehicle testing.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>From messages to a view</h2><p>Vehicle messages need to become a consistent picture: where the car is, where it plans to go, and what it sees around it. The interface combines map and trajectory overlays with a Three.js scene and customized Foxglove tooling.</p>
+<p>That makes coordinate handling and update timing part of the interface implementation. A path or object can look plausible while being in the wrong frame or showing an older state.</p>
+<figure><img src="../../asset/autoronto/Block Diagram.png" alt="Architecture of the aUToronto graphical interface" loading="lazy"><figcaption>The HMI's system architecture. Source: aUToronto.</figcaption></figure>
 
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>Two views of the same vehicle</h2><p>The 2D dashboard supports waypoint selection, route inspection, localization state, and diagnostics. The 3D view adds spatial context for detected objects and planned motion.</p>
+<p>Both need to remain readable on a tablet. The goal is not to display every message field; it is to expose the state someone needs to interpret what the vehicle is doing.</p>
+<div class="image-pair"><figure><img src="../../asset/autoronto/2d_map_view.jpeg" alt="Two-dimensional vehicle map" loading="lazy"><figcaption>2D map and mission view.</figcaption></figure><figure><img src="../../asset/autoronto/3d_map_view.jpeg" alt="Three-dimensional vehicle visualization" loading="lazy"><figcaption>3D perception view. Images: aUToronto.</figcaption></figure></div>
 
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>When incoming data outruns rendering</h2><p>During tablet testing, panning and rotating the 3D scene caused visible lag and dropped frames. Processing incoming spatial updates and re-rendering on every message arrival put ingestion and rendering on the same critical path.</p>
+<p>I added a point-queue buffer to separate ROSBridge data ingestion from the Three.js render loop. The scene could then batch coordinate updates around the display&#39;s refresh cycle instead of attempting a full visual update for every incoming packet.</p>
+<p>That changes the timing policy: rendering stays bounded by the screen, while incoming messages can arrive independently. It also means buffer behavior and freshness need attention; a smoother animation is useful only if the state stays current.</p>
+<figure><img src="../../asset/autoronto/GUI_requirement_testing_result.png" alt="Recorded comparison of GUI requirement testing between competition years" loading="lazy"><figcaption>The team's requirement-testing comparison. Source: aUToronto.</figcaption></figure>
 
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
+</section>
+<section class="project-section" id="section-5"><span class="section-index" aria-hidden="true">05</span><h2>Health and operator controls</h2><p>The health monitor displays sensor state, current draw, message frequency, and topic latency. Healthy, degraded, and takeover states make stack status visible without reading raw logs. This feature was co-developed with the System Safety team.</p>
+<p>Physical Streamdeck controls let operators start and stop key ROS nodes. That software was developed by team principal Chad and former GUI lead William; I assisted with integration. It belongs in the system story without presenting it as my implementation.</p>
+<div class="image-pair"><figure><img src="../../asset/autoronto/gui_health_monitor_healthy.png" alt="Healthy sensor status in the HMI" loading="lazy"><figcaption>Health monitor: healthy state.</figcaption></figure><figure><img src="../../asset/autoronto/gui_health_monitor_takeover.png" alt="Takeover status in the HMI" loading="lazy"><figcaption>Health monitor: takeover state.</figcaption></figure></div>
 
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
-
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+</section>
+<section class="project-section" id="section-6"><span class="section-index" aria-hidden="true">06</span><h2>What this changed about my approach</h2><p>This work made the interface feel like part of the robotics system. Rendering cost, transport, coordinate transforms, and state freshness affect what an operator can trust on screen.</p>
+<p>The practical lesson was to inspect the whole path from a vehicle message to the displayed result. Moving work between layers can help, but the result still needs to be checked on the hardware where it will run.</p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../calorie-planner/"><small>← PREVIOUS PROJECT</small><strong>Daily Calorie Planner</strong></a><a href="../memallocator/"><small>NEXT PROJECT →</small><strong>Dynamic Memory Allocator</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

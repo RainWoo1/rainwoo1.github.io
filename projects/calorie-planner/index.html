@@ -1,155 +1,48 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
-
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
-
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
-
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
-
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>Daily Calorie Planner — Jimin Woo</title><meta name="description" content="A meal-logging prototype that turns spoken food descriptions into calorie estimates."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="calorie-planner"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Speech &amp; language</p><h1>Daily Calorie Planner</h1><p class="project-deck">A meal-logging prototype that turns spoken food descriptions into calorie estimates.</p><div class="project-tags"><span>React Native</span><span>Expo</span><span>TypeScript</span><span>Flask</span><span>spaCy</span><span>Nutritionix</span></div><div class="project-links"><a href="https://github.com/RainWoo1/daily-calorie-planner" target="_blank" rel="noreferrer">Explore the code ↗</a></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">07 / 07</p><ul><li>Speech to text</li><li>Food recognition</li><li>Nutrition lookup</li></ul><p class="project-status">Prototype</p></aside></header>
+<figure class="project-cover"><img src="../../asset/calorieplanner.png" alt="Daily Calorie Planner project preview"><figcaption>Daily Calorie Planner · Project image · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>Less searching, more describing</a><a href="#section-2"><span>02</span>The processing path</a><a href="#section-3"><span>03</span>Connecting the interface</a><a href="#section-4"><span>04</span>Where estimates become uncertain</a><a href="#section-5"><span>05</span>What the prototype taught me</a></div></aside><article class="project-content" id="project-content"><section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>Less searching, more describing</h2><p>Entering a meal usually means searching for each food separately. This project explores another input: describe what you ate, extract the food mentions, and look up their calorie information.</p>
+<p>The repository combines an Expo / React Native interface, a Flask service, a browser recording demo, and notebooks for speech, food recognition, and nutrition lookup.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>The processing path</h2><p>The Flask browser-audio endpoint saves a WebM recording, converts it to WAV using pydub, and transcribes it through the SpeechRecognition library&#39;s Google recognizer. A separate text endpoint accepts a description directly.</p>
+<p>A locally trained spaCy entity-recognition model extracts food mentions. The service searches Nutritionix for matching foods, requests nutrient data, and formats the results as individual calorie estimates and a total.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>What it produces</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Audio conversion and transcription</td>
+<td>Text describing the meal</td>
+</tr>
+<tr>
+<td>Food entity recognition</td>
+<td>Food mentions to look up</td>
+</tr>
+<tr>
+<td>Nutritionix search</td>
+<td>Candidate food names</td>
+</tr>
+<tr>
+<td>Nutrient lookup</td>
+<td>Calories for matched entries</td>
+</tr>
+<tr>
+<td>Response formatting</td>
+<td>A readable summary and total</td>
+</tr>
+</tbody></table></div>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>Connecting the interface</h2><p>The mobile recording screen uses Expo audio to start and stop a recording and send the resulting file to Flask. The app also includes onboarding and meal-recording screens.</p>
+<p>There is an important integration boundary: the mobile <code>/uploadApp</code> endpoint currently saves the file, while the browser <code>/upload</code> endpoint runs the transcription and calorie pipeline. The source supports those prototype pieces, but not a claim that the mobile recording flow already completes the whole analysis automatically.</p>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>Where estimates become uncertain</h2><p>A spoken description may not specify portion size or how a dish was prepared. Entity recognition can miss a food, and a lookup can choose the wrong entry. The current search logic prefers an exact common-food match and can fall back to a branded result.</p>
+<p>That makes the returned numbers estimates tied to the matched entries. Explicit portion handling and a screen for correcting matches would be useful next steps before treating the output as a dependable meal log.</p>
+</section>
+<section class="project-section" id="section-5"><span class="section-index" aria-hidden="true">05</span><h2>What the prototype taught me</h2><p>The interesting engineering problem is the handoff between stages. Audio can upload successfully while transcription fails; a food can be recognized while the nutrition lookup finds nothing. Building the prototype made it easier to see where each stage needs a visible result and a recoverable error.</p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../career-canvas/"><small>← PREVIOUS PROJECT</small><strong>Career Canvas</strong></a><a href="../autoronto/"><small>NEXT PROJECT →</small><strong>aUToronto HMI</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

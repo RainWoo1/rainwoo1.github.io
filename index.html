@@ -3,281 +3,514 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Jimin Woo — Portfolio</title>
+    <meta name="theme-color" content="#f3f0e8" />
+    <title>Jimin Woo — Computer Engineer</title>
     <meta
       name="description"
-      content="Full-stack developer building playful, reliable, user-first systems."
+      content="Jimin Woo is a Computer Engineering student at the University of Toronto interested in robotics infrastructure, systems, and visual computing."
     />
-    <!-- Tailwind (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/site.css" />
   </head>
 
-  <body
-    x-data="portfolio()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter]"
-  >
-    <!-- Navbar -->
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <span class="font-[Chakra Petch] text-xl tracking-wide">JIMIN WOO</span>
-        <div class="flex items-center gap-4 text-sm">
-          <a href="#about" class="hover:opacity-80">About</a>
-          <a href="#experience" class="hover:opacity-80">Experience</a>
-          <a href="#hobbies" class="hover:opacity-80">Hobbies</a>
-          <!-- <a
-            href="Jimin_Woo.pdf"
-            class="px-3 py-1 rounded-lg border border-soft hover:bg-surface"
-            >Resume</a
-          > -->
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
+  <body>
+    <div class="page-noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Back to top">
+        <span class="wordmark-dot"></span>
+        <span>JIMIN WOO</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#notes">Notes</a>
+        <a href="#about">About</a>
+        <a href="https://github.com/RainWoo1" target="_blank" rel="noreferrer"
+          >GitHub ↗</a
+        >
       </nav>
     </header>
 
-    <!-- Hero -->
-    <main id="top" class="max-w-6xl mx-auto px-5">
-      <section
-        class="mt-10 md:mt-16 grid-bg rounded-3xl border border-soft p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8"
-      >
-        <div class="flex-1 order-2 md:order-1">
-          <h1
-            class="mt-4 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-          >
-            Jimin Woo
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">COMPUTER ENGINEERING · TORONTO</p>
+          <h1>
+            I like software that has to
+            <span class="scribble-wrap"
+              >keep up.<span class="scribble" aria-hidden="true"></span
+            ></span>
           </h1>
-          <p class="mt-3 text-sub max-w-xl text-lg leading-relaxed">
-            Computer Engineering student @ <b>University of Toronto</b>
+          <p class="hero-intro">
+            I’m Jimin, a Computer Engineering student at the University of
+            Toronto. I’m mostly interested in robotics infrastructure, systems,
+            and software that sits close to the machine.
           </p>
-          <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-base">
-            <a
-              class="inline-link"
-              href="https://www.linkedin.com/in/rainjiminwoo/"
-              target="_blank"
-              rel="noreferrer"
-              >LinkedIn</a
-            >
-            <a
-              class="inline-link"
-              href="https://github.com/RainWoo1"
-              target="_blank"
-              rel="noreferrer"
-              >GitHub</a
-            >
-            <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-              >Email</a
-            >
+          <p class="lately-line">
+            <span>lately</span> robotics infrastructure · system performance ·
+            robot manipulation
           </p>
 
-        </div>
-
-        <div class="shrink-0 order-1 md:order-2">
-          <img
-            src="./asset/profile_photo_cropped.JPG"
-            alt="Jimin Woo"
-            class="w-50 h-59 md:w-80 md:h-80 rounded-3xl object-cover border-2 border-soft shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300"
-          />
-        </div>
-      </section>
-
-      <!-- About -->
-      <section id="about" class="py-12 md:py-16 border-t border-soft">
-        <h2 class="font-[Chakra Petch] text-3xl mb-6">About</h2>
-        <div class="max-w-4xl space-y-6 text-sub text-lg leading-relaxed">
-          <p>
-            Hey 👋 my name is Jimin! My passion for building things drives my
-            interest in computers, software, and machine learning.
-          </p>
-
-          <p>
-            As a Computer Engineering student at the University of Toronto, I
-            seek to combine my determination to solve complex problems with my
-            curiosity about how and why things work. Whether it is building an
-            autonomous mobile robot, working on the Graphcal User Interface
-            system of a self-driving car, or using computer vision to solve
-            complex medical tasks, I'm always interested in learning about how I
-            can apply my knowledge to practical issues around me. Through my
-            work, I have come to understand the principles of engineering
-            design, teamwork, and above all, the importance of creating a system
-            for feedback. What makes my approach unique is my background in fine
-            arts. Graduating at the Design program at
-            <b>Yewon School</b> taught me to decompose complex information into
-            intuitive logical visual logic. I now apply those same principles to
-            software architecture design.
-          </p>
-
-          <p>
-            If you want to learn more about my experiences, discuss potential
-            collaborations, or just want to chat about things related to ML and
-            robotics, feel free to contact me!
-          </p>
-        </div>
-      </section>
-
-      <section id="experience" class="py-12 md:py-16">
-        <div class="flex items-end justify-between mb-6">
-          <h2 class="font-[Chakra Petch] text-3xl">
-            Experience - Things I've worked on
-          </h2>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <template x-for="p in experiences" :key="p.slug">
-            <a
-              :href="'./projects/' + p.slug + '/'"
-              class="toy-card block rounded-2xl border border-soft bg-surface p-4"
-              :aria-label="'Open details for ' + p.title"
+          <div class="hero-links">
+            <a class="text-link" href="#work"
+              >See what I’ve built <span>↓</span></a
             >
-              <div class="img-16x9 mb-3">
-                <img
-                  :src="p.image"
-                  :alt="p.title + ' preview'"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="text-lg font-semibold" x-text="p.title"></h3>
-            </a>
-          </template>
-        </div>
-      </section>
-
-      <section id="hobbies" class="py-12 md:py-16 border-t border-soft">
-        <h2 class="font-[Chakra Petch] text-3xl mb-6">Hobbies</h2>
-        <div class="max-w-4xl space-y-6 text-sub text-lg leading-relaxed">
-          <p>
-            Outside of engineering I like hiking, boxing, and golfing. I also
-            draw, read, and go to classical concerts. Traveling and trying food
-            along the way is a big part of that too.
-          </p>
-        </div>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <img
-            src="./asset/hobbies/climb_up.JPG"
-            alt="CN Tower Climb Up"
-            class="h-28 w-28 md:h-36 md:w-36 rounded-xl object-cover border border-soft"
-          />
-          <img
-            src="./asset/hobbies/jimin_drawing.jpg"
-            alt="Painting in the studio"
-            class="h-28 w-28 md:h-36 md:w-36 rounded-xl object-cover border border-soft"
-          />
-          <img
-            src="./asset/hobbies/drawing_3.JPG"
-            alt="Pencil portrait"
-            class="h-28 w-28 md:h-36 md:w-36 rounded-xl object-cover border border-soft"
-          />
-          <img
-            src="./asset/hobbies/drawing_1.JPG"
-            alt="Still life painting"
-            class="h-28 w-28 md:h-36 md:w-36 rounded-xl object-cover border border-soft"
-          />
-          <img
-            src="./asset/hobbies/drawing_2.jpg"
-            alt="Abstract painting"
-            class="h-28 w-28 md:h-36 md:w-36 rounded-xl object-cover border border-soft"
-          />
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="py-10 border-t border-soft text-sm text-sub">
-        <div
-          class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-        >
-          <p>© <span x-text="year"></span> Jimin Woo</p>
-          <div class="flex gap-4">
-            <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-              >Email</a
-            >
-            <a
-              class="inline-link"
-              href="https://github.com/RainWoo1"
-              target="_blank"
-              rel="noreferrer"
-              >GitHub</a
-            >
-            <a
-              class="inline-link"
-              href="https://www.linkedin.com/in/rainjiminwoo/"
-              target="_blank"
-              rel="noreferrer"
-              >LinkedIn</a
+            <a class="text-link muted" href="mailto:rain.woo@mail.utoronto.ca"
+              >rain.woo@mail.utoronto.ca</a
             >
           </div>
         </div>
-      </footer>
+
+        <div
+          class="signal-card thinking-card"
+          id="signalCard"
+          aria-label="Interactive diagram of how I tend to approach systems"
+        >
+          <div class="signal-card-topline">
+            <span>HOW I TEND TO WORK</span>
+            <span class="signal-status"><i></i> still iterating</span>
+          </div>
+
+          <svg
+            class="pipeline thinking-pipeline"
+            viewBox="0 0 620 430"
+            role="img"
+            aria-labelledby="pipelineTitle pipelineDesc"
+          >
+            <title id="pipelineTitle">How I tend to approach systems</title>
+            <desc id="pipelineDesc">
+              Understand, measure, move, and verify.
+            </desc>
+            <defs>
+              <filter
+                id="softGlow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g class="pipeline-grid" aria-hidden="true">
+              <path d="M0 86H620M0 172H620M0 258H620M0 344H620" />
+              <path d="M103 0V430M206 0V430M309 0V430M412 0V430M515 0V430" />
+            </g>
+
+            <path
+              class="thinking-line"
+              d="M86 218 C165 140, 215 140, 282 218 S410 294, 534 218"
+            />
+            <circle class="thinking-packet" r="6" />
+
+            <g
+              class="pipeline-node thought-node"
+              data-stage="understand"
+              transform="translate(86 218)"
+              tabindex="0"
+            >
+              <circle r="43" />
+              <text class="node-number" y="-7">01</text>
+              <text y="11">UNDERSTAND</text>
+              <text class="node-sub" y="30">what is it doing?</text>
+            </g>
+            <g
+              class="pipeline-node thought-node"
+              data-stage="measure"
+              transform="translate(236 151)"
+              tabindex="0"
+            >
+              <circle r="43" />
+              <text class="node-number" y="-7">02</text>
+              <text y="11">MEASURE</text>
+              <text class="node-sub" y="30">where is the cost?</text>
+            </g>
+            <g
+              class="pipeline-node thought-node"
+              data-stage="move"
+              transform="translate(386 285)"
+              tabindex="0"
+            >
+              <circle r="43" />
+              <text class="node-number" y="-7">03</text>
+              <text y="11">MOVE</text>
+              <text class="node-sub" y="30">which layer owns it?</text>
+            </g>
+            <g
+              class="pipeline-node thought-node"
+              data-stage="verify"
+              transform="translate(534 218)"
+              tabindex="0"
+            >
+              <circle r="43" />
+              <text class="node-number" y="-7">04</text>
+              <text y="11">VERIFY</text>
+              <text class="node-sub" y="30">did it help?</text>
+            </g>
+
+            <g class="tiny-doodle" aria-hidden="true">
+              <path d="M44 73c16-17 36-18 53-4" />
+              <path d="M502 74c15-10 32-10 48 1" />
+              <circle cx="50" cy="337" r="3" />
+              <circle cx="62" cy="344" r="3" />
+              <path d="M46 354c7 7 14 7 21 0" />
+            </g>
+          </svg>
+
+          <div class="signal-readout" aria-live="polite">
+            <span id="stageIndex">01</span>
+            <p id="stageCopy">
+              I usually start by trying to understand what the system is
+              actually doing.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Areas of interest">
+        <div class="ticker-track">
+          <span>ROBOTICS INFRASTRUCTURE</span><b>↗</b> <span>SYSTEMS</span
+          ><b>↗</b> <span>VISUAL COMPUTING</span><b>↗</b>
+          <span>PERFORMANCE</span><b>↗</b> <span>ROBOTICS INFRASTRUCTURE</span
+          ><b>↗</b> <span>SYSTEMS</span><b>↗</b> <span>VISUAL COMPUTING</span
+          ><b>↗</b> <span>PERFORMANCE</span><b>↗</b>
+        </div>
+      </section>
+
+      <section id="work" class="work section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">SELECTED WORK</p>
+          <h2>A few things I’ve spent too much time thinking about.</h2>
+        </div>
+
+        <a class="feature-project autoronto" href="./projects/autoronto/">
+          <div class="project-copy">
+            <div class="project-number">01</div>
+            <div>
+              <p class="project-kicker">AUTONOMOUS VEHICLE SOFTWARE</p>
+              <h3>aUToronto</h3>
+              <p>
+                Tools for visualizing vehicle state, planned paths, maps, and
+                other live robotics data on the car. A lot of the interesting
+                work ended up being about where computation should happen and
+                how much data the interface actually needs.
+              </p>
+              <div class="project-tags">
+                <span>C++</span><span>ROS</span><span>JavaScript</span
+                ><span>Foxglove</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-visual road-visual" aria-hidden="true">
+            <svg viewBox="0 0 720 440">
+              <path
+                class="road-grid"
+                d="M0 80H720M0 160H720M0 240H720M0 320H720M120 0V440M240 0V440M360 0V440M480 0V440M600 0V440"
+              />
+              <path
+                class="road-edge"
+                d="M20 360 C160 260, 220 300, 300 212 S490 170, 700 40"
+              />
+              <path
+                class="road-edge"
+                d="M45 400 C180 300, 250 346, 334 252 S516 218, 720 92"
+              />
+              <path
+                class="planned-path"
+                d="M35 380 C170 283, 235 324, 318 232 S505 194, 710 66"
+              />
+              <g class="car-marker">
+                <rect x="-14" y="-22" width="28" height="44" rx="8" />
+                <path d="M0 -31L7 -20H-7Z" />
+              </g>
+              <g class="object-boxes">
+                <rect x="420" y="112" width="54" height="35" rx="4" />
+                <rect x="565" y="216" width="42" height="42" rx="4" />
+              </g>
+            </svg>
+            <div class="visual-caption">
+              <span>route / live state</span><span>open project ↗</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="project-pair">
+          <a
+            class="project-card allocator-card"
+            href="./projects/memallocator/"
+          >
+            <div class="project-number">02</div>
+            <p class="project-kicker">SYSTEMS EXPERIMENT</p>
+            <h3>Dynamic Memory Allocator</h3>
+            <p>
+              I built a small allocator to get past the abstraction of
+              <code>malloc()</code> and experiment with free lists, splitting,
+              coalescing, and allocation policies myself.
+            </p>
+
+            <div class="heap-demo" aria-hidden="true">
+              <div class="heap-labels"><span>heap</span><span>hover</span></div>
+              <div class="heap-row">
+                <i class="block used wide"></i><i class="block free"></i
+                ><i class="block used"></i><i class="block free wide"></i
+                ><i class="block used small"></i>
+              </div>
+              <div class="heap-row offset">
+                <i class="block free small"></i><i class="block used"></i
+                ><i class="block used wide"></i><i class="block free"></i
+                ><i class="block used"></i><i class="block free small"></i>
+              </div>
+            </div>
+
+            <div class="project-tags">
+              <span>C</span><span>Free lists</span><span>Trace benchmarks</span>
+            </div>
+          </a>
+
+          <a class="project-card forklift-card" href="./projects/forklift/">
+            <div class="project-number">03</div>
+            <p class="project-kicker">ROBOTICS</p>
+            <h3>Autonomous Forklift</h3>
+            <p>
+              An in-progress capstone connecting perception, navigation, and a
+              forklift-style lifting mechanism. We’re starting with hardware
+              bring-up and a constrained warehouse demo.
+            </p>
+
+            <div class="forklift-demo" aria-hidden="true">
+              <div class="warehouse-grid"></div>
+              <div class="shelf shelf-a"></div>
+              <div class="shelf shelf-b"></div>
+              <div class="forklift-body"><i></i></div>
+              <svg viewBox="0 0 500 220">
+                <path d="M70 172 C130 105, 210 120, 252 78 S390 42, 455 72" />
+              </svg>
+            </div>
+
+            <div class="project-tags">
+              <span>ROS2</span><span>Capstone</span><span>In progress</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="more-work">
+          <div class="mini-section-title">
+            <p class="eyebrow">OTHER THINGS</p>
+            <p>Smaller projects, different rabbit holes.</p>
+          </div>
+          <div class="mini-project-grid">
+            <a class="mini-project medipath-mini" href="./projects/medipath/">
+              <div class="mini-visual scan-visual" aria-hidden="true">
+                <svg class="mini-route" viewBox="0 0 220 120">
+                  <path
+                    class="mini-roads"
+                    d="M0 30H220M0 90H220M45 0V120M165 0V120"
+                  />
+                  <path class="mini-trip" d="M45 92V30H165" />
+                  <circle cx="45" cy="92" r="7" />
+                  <rect x="152" y="17" width="26" height="26" rx="7" />
+                  <path class="hospital-cross" d="M165 22V38M157 30H173" />
+                </svg>
+                <div class="scan-spark">✦</div>
+              </div>
+              <div class="mini-copy">
+                <span class="mini-index">04</span>
+                <h4>MediPath</h4>
+                <p>
+                  A C++ map for hospital search, route planning, and traffic
+                  overlays.
+                </p>
+                <small>C++ · maps · pathfinding</small>
+              </div>
+              <b class="mini-arrow">↗</b>
+            </a>
+
+            <a class="mini-project stock-mini" href="./projects/stock/">
+              <div class="mini-visual chart-visual" aria-hidden="true">
+                <svg viewBox="0 0 220 120">
+                  <path
+                    class="chart-grid-line"
+                    d="M0 30H220M0 60H220M0 90H220"
+                  />
+                  <path
+                    class="chart-path"
+                    d="M5 98 C30 91,43 48,65 62 S96 84,116 45 S151 28,170 50 S195 37,216 20"
+                  />
+                  <circle cx="216" cy="20" r="5" />
+                </svg>
+                <span class="chart-note">sequence</span>
+              </div>
+              <div class="mini-copy">
+                <span class="mini-index">05</span>
+                <h4>LSTM Portfolio Curation</h4>
+                <p>
+                  A sequence-model project for exploring medium-term stock
+                  ranking.
+                </p>
+                <small>deep learning · time series</small>
+              </div>
+              <b class="mini-arrow">↗</b>
+            </a>
+
+            <a
+              class="mini-project canvas-mini"
+              href="./projects/career-canvas/"
+            >
+              <div class="mini-visual sticky-visual" aria-hidden="true">
+                <span class="sticky s1">build</span
+                ><span class="sticky s2">learn</span
+                ><span class="sticky s3">apply</span> <i class="pin p1"></i
+                ><i class="pin p2"></i>
+              </div>
+              <div class="mini-copy">
+                <span class="mini-index">06</span>
+                <h4>Career Canvas</h4>
+                <p>
+                  A product experiment for making career planning feel less like
+                  a spreadsheet.
+                </p>
+                <small>product · web</small>
+              </div>
+              <b class="mini-arrow">↗</b>
+            </a>
+
+            <a
+              class="mini-project calorie-mini"
+              href="./projects/calorie-planner/"
+            >
+              <div class="mini-visual plate-visual" aria-hidden="true">
+                <div class="plate"><span>½</span><i>¼</i><b>¼</b></div>
+                <em>+</em>
+              </div>
+              <div class="mini-copy">
+                <span class="mini-index">07</span>
+                <h4>Daily Calorie Planner</h4>
+                <p>
+                  A voice-based meal-logging prototype with food recognition and
+                  calorie lookup.
+                </p>
+                <small>React Native · Flask · NLP</small>
+              </div>
+              <b class="mini-arrow">↗</b>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="notes" class="notes section-shell">
+        <div class="section-heading compact">
+          <p class="eyebrow">RABBIT HOLES</p>
+          <h2>Things I kept wondering about.</h2>
+        </div>
+
+        <div class="question-list">
+          <a href="./projects/memallocator/" class="question-row">
+            <span class="question-index">A</span>
+            <span class="question"
+              >What is <code>malloc()</code> actually doing for me?</span
+            >
+            <span class="question-context">memory allocator</span>
+            <span class="question-arrow">↗</span>
+          </a>
+          <a href="./projects/autoronto/" class="question-row">
+            <span class="question-index">B</span>
+            <span class="question"
+              >How much robotics data should a browser really be
+              processing?</span
+            >
+            <span class="question-context">aUToronto</span>
+            <span class="question-arrow">↗</span>
+          </a>
+          <a href="./projects/autoronto/" class="question-row">
+            <span class="question-index">C</span>
+            <span class="question"
+              >Where should transforms happen when every millisecond
+              matters?</span
+            >
+            <span class="question-context">visualization stack</span>
+            <span class="question-arrow">↗</span>
+          </a>
+          <a href="./projects/forklift/" class="question-row">
+            <span class="question-index">D</span>
+            <span class="question"
+              >What changes when software has to move something in the real
+              world?</span
+            >
+            <span class="question-context">robotics</span>
+            <span class="question-arrow">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="about" class="about section-shell">
+        <div class="about-photo-wrap">
+          <img
+            src="./asset/profile_photo_cropped.JPG"
+            alt="Jimin Woo"
+            class="about-photo"
+          />
+          <span class="photo-note">yes, I also leave the terminal</span>
+        </div>
+
+        <div class="about-copy">
+          <p class="eyebrow">ABOUT</p>
+          <h2>I started in art. I ended up in engineering.</h2>
+          <p>
+            Before studying Computer Engineering, I studied design at Yewon
+            School. I still think visually: diagrams, interfaces, and the shape
+            of a system are usually how I start making sense of something
+            complicated.
+          </p>
+          <p>
+            These days I spend most of my time around robotics software and
+            systems. I like problems where the abstraction leaks a little —
+            where performance, data movement, hardware, or the person using the
+            tool changes the answer.
+          </p>
+          <p>
+            Outside engineering, I draw, hike, box, golf, and go to classical
+            concerts.
+          </p>
+
+          <div class="about-links">
+            <a
+              href="https://www.linkedin.com/in/rainjiminwoo/"
+              target="_blank"
+              rel="noreferrer"
+              >LinkedIn ↗</a
+            >
+            <a
+              href="https://github.com/RainWoo1"
+              target="_blank"
+              rel="noreferrer"
+              >GitHub ↗</a
+            >
+            <a href="mailto:rain.woo@mail.utoronto.ca">Email ↗</a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <script src="./js/theme.js"></script>
-    <script>
-      function portfolio() {
-        return {
-          ...siteTheme(),
-          experiences: [
-            {
-              slug: "autoronto",
-              title: "aUToronto",
-              image: "./asset/autoronto/artemis.jpg",
-            },
-            {
-              slug: "memallocator",
-              title: "Dynamic Memory Allocator",
-              image: "./asset/memallocator/per-chunk-size-allocator-2.png",
-            },
-            {
-              slug: "medipath",
-              title: "MediPath",
-              image: "./asset/medipath.png",
-            },
-            {
-              slug: "forklift",
-              title: "Autonomous Forklift System",
-              image: "./asset/forklift/forklift_sim.png",
-            },
-            {
-              slug: "calorie-planner",
-              title: "Daily Calorie Planner",
-              image: "./asset/calorieplanner.png",
-            },
-            {
-              slug: "stock",
-              title: "LSTM Stock Portfolio Curation",
-              image: "./asset/stock.png",
-            },
-            {
-              slug: "career-canvas",
-              title: "Career Canvas",
-              image: "./asset/careercanvas.png",
-            },
-          ],
-        };
-      }
-    </script>
+    <footer class="site-footer section-shell">
+      <span>JIMIN WOO</span>
+      <span
+        >made with code, diagrams, and too many tiny alignment decisions.</span
+      >
+      <a href="#top">back to top ↑</a>
+    </footer>
+
+    <script src="./js/interactions.js"></script>
   </body>
 </html>

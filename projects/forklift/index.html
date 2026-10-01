@@ -1,155 +1,48 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project — Jimin Woo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../css/site.css" />
-  </head>
-
-  <body
-    x-data="projectPage()"
-    x-init="init()"
-    :class="darkMode ? 'dark text-main bg-app' : 'text-main bg-app'"
-    class="font-[Inter] min-h-screen"
-  >
-    <header
-      class="sticky top-0 z-40 backdrop-blur"
-      style="
-        background: color-mix(in oklab, var(--panel) 80%, transparent);
-        border-bottom: 1px solid var(--border);
-      "
-    >
-      <nav
-        class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between"
-      >
-        <a
-          href="../../index.html"
-          class="font-[Chakra Petch] text-xl tracking-wide"
-          >JIMIN WOO</a
-        >
-        <div class="flex items-center gap-4 text-sm">
-          <a href="../../index.html#experience" class="hover:opacity-80"
-            >← Experience</a
-          >
-          <button
-            @click="toggleTheme"
-            class="px-3 py-1 rounded-lg border border-soft"
-            aria-label="Toggle theme"
-          >
-            ☀︎/☾
-          </button>
-        </div>
-      </nav>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-5 py-10 md:py-14">
-      <template x-if="loading">
-        <p class="text-sub">Loading…</p>
-      </template>
-
-      <template x-if="!loading && error">
-        <p class="text-sub" x-text="error"></p>
-      </template>
-
-      <template x-if="!loading && !error">
-        <article>
-          <a
-            href="../../index.html#experience"
-            class="inline-link text-sm text-sub"
-            >← Back to experience</a
-          >
-
-          <h1
-            class="mt-6 font-[Chakra Petch] text-4xl md:text-5xl leading-tight"
-            x-text="title"
-          ></h1>
-
-          <p
-            class="mt-4 text-lg text-sub leading-relaxed"
-            x-text="blurb"
-            x-show="blurb"
-          ></p>
-
-          <div class="mt-4 flex flex-wrap gap-2" x-show="tech.length">
-            <template x-for="t in tech" :key="t">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border border-soft bg-surface"
-                x-text="t"
-              ></span>
-            </template>
-          </div>
-
-          <div class="img-16x9 mt-8" x-show="image">
-            <img :src="image" :alt="title + ' preview'" />
-          </div>
-
-          <div class="mt-4 flex gap-4" x-show="links.live || links.code">
-            <template x-if="links.live">
-              <a
-                class="inline-link text-sm"
-                :href="links.live"
-                target="_blank"
-                rel="noreferrer"
-                >Live</a
-              >
-            </template>
-            <template x-if="links.code">
-              <a
-                class="inline-link text-sm"
-                :href="links.code"
-                target="_blank"
-                rel="noreferrer"
-                >Code</a
-              >
-            </template>
-          </div>
-
-          <div class="prose-project mt-10" x-html="bodyHtml"></div>
-        </article>
-      </template>
-    </main>
-
-    <footer class="py-10 border-t border-soft text-sm text-sub">
-      <div
-        class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-3"
-      >
-        <p>© <span x-text="year"></span> Jimin Woo</p>
-        <div class="flex gap-4">
-          <a class="inline-link" href="mailto:rain.woo@mail.utoronto.ca"
-            >Email</a
-          >
-          <a
-            class="inline-link"
-            href="https://github.com/RainWoo1"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="inline-link"
-            href="https://www.linkedin.com/in/rainjiminwoo/"
-            target="_blank"
-            rel="noreferrer"
-            >LinkedIn</a
-          >
-        </div>
-      </div>
-    </footer>
-
-    <script src="../../js/theme.js"></script>
-    <script src="../../js/project-page.js"></script>
-  </body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>Autonomous Forklift — Jimin Woo</title><meta name="description" content="A capstone project connecting perception, navigation, and a physical lifting mechanism."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../css/site.css"><link rel="stylesheet" href="../../css/project.css"></head>
+<body class="project-page" data-project="forklift"><a class="skip-link" href="#project-content">Skip to project</a><div class="reading-progress" aria-hidden="true"></div><header class="site-header"><a class="wordmark" href="../../index.html"><span class="wordmark-dot" aria-hidden="true"></span>JIMIN WOO</a><nav class="project-nav" aria-label="Primary"><a href="../../index.html#work">Work</a><a href="../../index.html#about">About</a><a href="mailto:rain.woo@mail.utoronto.ca">Say hello ↗</a></nav></header>
+<main class="section-shell"><a class="project-home-link" href="../../index.html#work">← All projects</a><header class="project-hero"><div><p class="project-category">Robotics &amp; integration</p><h1>Autonomous Forklift</h1><p class="project-deck">A capstone project connecting perception, navigation, and a physical lifting mechanism.</p><div class="project-tags"><span>ROS2</span><span>Python</span><span>Raspberry Pi</span><span>Embedded control</span><span>RGB-D sensing</span></div></div><aside class="project-note" aria-label="Project snapshot"><span class="note-label">Inside this project</span><span class="note-star" aria-hidden="true">✳</span><p class="note-number">03 / 07</p><ul><li>ROS2 integration</li><li>Perception + navigation</li><li>Hardware bring-up</li></ul><p class="project-status">In progress · planning and bring-up</p></aside></header>
+<figure class="project-cover"><img src="../../asset/forklift/forklift_sim.png" alt="Autonomous Forklift project preview"><figcaption>Autonomous Forklift · Simulation preview from the existing portfolio · Select image to enlarge</figcaption></figure>
+<div class="project-layout"><aside class="project-toc"><p>ON THIS PAGE</p><div><a href="#section-1"><span>01</span>A robot that retrieves, not just navigates</a><a href="#section-2"><span>02</span>The proposed system</a><a href="#section-3"><span>03</span>Bringing it up in stages</a><a href="#section-4"><span>04</span>A deliberately constrained first demo</a><a href="#section-5"><span>05</span>Why this project interests me</a></div></aside><article class="project-content" id="project-content"><section class="project-section" id="section-1"><span class="section-index" aria-hidden="true">01</span><h2>A robot that retrieves, not just navigates</h2><p>Our four-person capstone team is designing a mobile robot for a warehouse-like environment. The goal is to navigate a limited area, associate known objects with locations, and retrieve a requested object using a forklift-style lifting mechanism.</p>
+<p>The project is in initial planning and bring-up. The current repository contains the proposal, architecture notes, hardware documentation, and development workflow. It does not yet establish a completed autonomous retrieval system.</p>
+</section>
+<section class="project-section" id="section-2"><span class="section-index" aria-hidden="true">02</span><h2>The proposed system</h2><p>The platform separates higher-level perception and planning from low-level motor and actuator control. ROS2 connects the software components, with laptop-based computation and an embedded controller. The proposal also includes a Raspberry Pi, wheel encoders, an IMU, and an RGB-D camera.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Planned responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RGB-D perception</td>
+<td>Observe depth and identify known objects</td>
+</tr>
+<tr>
+<td>Mapping and localization</td>
+<td>Relate observations to locations</td>
+</tr>
+<tr>
+<td>Navigation</td>
+<td>Move the base toward the target</td>
+</tr>
+<tr>
+<td>Manipulation control</td>
+<td>Align and operate the lift</td>
+</tr>
+<tr>
+<td>Embedded controller</td>
+<td>Drive motors and actuators</td>
+</tr>
+</tbody></table></div>
+<p>These are design responsibilities, not a list of subsystems already validated on hardware.</p>
+</section>
+<section class="project-section" id="section-3"><span class="section-index" aria-hidden="true">03</span><h2>Bringing it up in stages</h2><p>The proposal starts with hardware operation independent of AI: stream the camera and remotely control the wheels and lift. The next stage connects perception while the robot is teleoperated and creates a physical environment matching the simulation.</p>
+<p>Navigation and retrieval come after that foundation. Separating these stages gives us ways to inspect individual failures before asking the full system to act autonomously.</p>
+</section>
+<section class="project-section" id="section-4"><span class="section-index" aria-hidden="true">04</span><h2>A deliberately constrained first demo</h2><p>The initial environment is small and structured, with known box-like objects. That keeps the first demonstration focused on integration instead of requiring general object handling or an arbitrary warehouse layout.</p>
+<p>Simulation is planned for early perception and navigation development. Physical pickup still needs its own validation: finding the correct object does not by itself establish that the robot can approach, lift, and transport it reliably.</p>
+</section>
+<section class="project-section" id="section-5"><span class="section-index" aria-hidden="true">05</span><h2>Why this project interests me</h2><p>It crosses the boundary between software and a mechanism that has to move. A good perception result is only one step; the timing, coordinate frames, controller behavior, and physical alignment all have to agree. That is the systems problem I want to work through as the capstone develops.</p>
+</section></article></div>
+<nav class="project-end" aria-label="More projects"><a href="../memallocator/"><small>← PREVIOUS PROJECT</small><strong>Dynamic Memory Allocator</strong></a><a href="../medipath/"><small>NEXT PROJECT →</small><strong>MediPath</strong></a></nav><footer class="project-footer"><span>Jimin Woo · Computer Engineering</span><a href="../../index.html#work">Back to work ↑</a><a href="mailto:rain.woo@mail.utoronto.ca">Get in touch ↗</a></footer></main><dialog class="image-dialog" aria-label="Enlarged project image"><button type="button">Close ×</button><img alt=""></dialog><script src="../../js/project-page.js" defer></script></body></html>

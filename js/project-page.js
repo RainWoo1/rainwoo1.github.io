@@ -1,115 +1,36 @@
-/**
- * Prevents marked.js from breaking block-level HTML at blank lines.
- * CommonMark spec ends Type-6 HTML blocks (div, section, etc.) at the
- * first blank line, which causes inner divs to be mis-parsed as code blocks.
- * We replace blank lines inside tracked HTML block elements with a harmless
- * HTML comment so marked sees no blank line and keeps the block intact.
- */
-function protectHtmlBlocks(markdown) {
-  // Count ALL opens/closes on every line so that single-line <div>...</div>
-  // doesn't permanently inflate depth.
-  const BLOCK   = 'div|section|article|main|header|footer|nav|aside|figure|video|details|summary';
-  const OPEN_RE  = new RegExp(`<(?:${BLOCK})\\b`, 'gi');
-  const CLOSE_RE = new RegExp(`</(?:${BLOCK})\\s*>`, 'gi');
-  const lines = markdown.split('\n');
-  let depth = 0;
-  let inStyle = false;
-  return lines.map(line => {
-    const t = line.trim();
-    if (/^<style\b/i.test(t))  { inStyle = true; }
-    if (/^<\/style>/i.test(t)) { inStyle = false; return line; }
-    if (inStyle) return line;
-    if (t !== '') {
-      const opens  = (t.match(OPEN_RE)  || []).length;
-      const closes = (t.match(CLOSE_RE) || []).length;
-      depth = Math.max(0, depth + opens - closes);
-    }
-    return (depth > 0 && t === '') ? '<!---->' : line;
-  }).join('\n');
-}
-
-function parseFrontmatter(raw) {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
-  if (!match) {
-    return { meta: {}, body: raw };
+/* Static content stays readable without JavaScript. */
+(() => {
+  const progress = document.querySelector('.reading-progress');
+  let ticking = false;
+  function update() {
+    const distance = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${distance > 0 ? Math.min(1, scrollY / distance) : 1})`;
+    ticking = false;
   }
-
-  const meta = {};
-  const lines = match[1].split(/\r?\n/);
-  let currentKey = null;
-  let currentList = null;
-
-  for (const line of lines) {
-    if (/^\s*-\s+/.test(line) && currentList) {
-      currentList.push(line.replace(/^\s*-\s+/, "").trim());
-      continue;
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, {passive:true});
+  addEventListener('resize', update); update();
+  const links = [...document.querySelectorAll('.project-toc a')];
+  const observer = new IntersectionObserver(entries => {
+    const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top-b.boundingClientRect.top);
+    if (!visible.length) return;
+    for (const link of links) {
+      if(link.hash === '#' + visible[0].target.id) link.setAttribute('aria-current','location');
+      else link.removeAttribute('aria-current');
     }
-
-    const kv = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
-    if (!kv) continue;
-
-    currentKey = kv[1];
-    const value = kv[2].trim();
-
-    if (value === "" || value === "|" || value === ">") {
-      currentList = [];
-      meta[currentKey] = currentList;
-    } else if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      meta[currentKey] = value.slice(1, -1);
-      currentList = null;
-    } else {
-      meta[currentKey] = value;
-      currentList = null;
-    }
-  }
-
-  if (typeof meta.tech === "string") {
-    meta.tech = meta.tech
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
-  }
-
-  return { meta, body: match[2].trim() };
-}
-
-function projectPage() {
-  return {
-    ...siteTheme(),
-    loading: true,
-    error: null,
-    title: "",
-    blurb: "",
-    image: "",
-    tech: [],
-    links: {},
-    bodyHtml: "",
-
-    async init() {
-      try {
-        const res = await fetch("./content.md", { cache: "no-cache" });
-        if (!res.ok) throw new Error("Could not load project content.");
-        const raw = await res.text();
-        const { meta, body } = parseFrontmatter(raw);
-
-        this.title = meta.title || "Project";
-        this.blurb = meta.blurb || "";
-        this.image = meta.image || "";
-        this.tech = Array.isArray(meta.tech) ? meta.tech : [];
-        this.links = {
-          live: meta.live || "",
-          code: meta.code || "",
-        };
-        this.bodyHtml = marked.parse(protectHtmlBlocks(body || ""));
-        document.title = `${this.title} — Jimin Woo`;
-      } catch (err) {
-        this.error = err.message || "Failed to load project.";
-      } finally {
-        this.loading = false;
-      }
-    },
-  };
-}
+  },{rootMargin:'-5% 0px -55% 0px'});
+  document.querySelectorAll('.project-section').forEach(section => observer.observe(section));
+  const dialog = document.querySelector('.image-dialog');
+  let trigger;
+  document.querySelectorAll('.project-cover img,.project-content figure img,.allocator-figure').forEach(img => {
+    const button = document.createElement('button');
+    button.type = 'button';button.setAttribute('aria-label','Enlarge image: ' + img.alt);
+    button.style.cssText = 'display:block;width:100%;border:0;padding:0;background:transparent;cursor:zoom-in';
+    img.replaceWith(button);button.append(img);
+    button.addEventListener('click', () => {
+      trigger = button;dialog.querySelector('img').src = img.src;dialog.querySelector('img').alt = img.alt;dialog.showModal();
+    });
+  });
+  dialog.querySelector('button').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => { if(event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => trigger?.focus());
+})();
