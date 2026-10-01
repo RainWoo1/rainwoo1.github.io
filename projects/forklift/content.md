@@ -1,7 +1,7 @@
 ---
 title: Autonomous Forklift System
 blurb: Autonomous warehouse robot achieving navigation precision via custom PID control and real-time telemetry.
-image: ../../asset/forklift_sim.png
+image: ../../asset/forklift/forklift_sim.png
 tech:
   - Python
   - ESP32

@@ -1,7 +1,7 @@
 ---
 title: aUToronto
 blurb: A human machine interface for real-time autonomous vehicle telemetry and mission control.
-# image: ../../asset/gui.png
+# image: ../../asset/autoronto/gui.png
 tech:
   - React
   - C++
@@ -11,7 +11,7 @@ tech:
 ---
 
 <video width=100% autoplay loop muted playsinline controls>
-  <source src="../../asset/GUI_gif.mov" type="video/mp4">
+  <source src="../../asset/autoronto/GUI_gif.mov" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 <!-- ![The user interface running on the car, artemis]() -->
@@ -23,7 +23,7 @@ The University of Toronto's Self-Driving Car Team, [aUToronto](https://www.autod
 While named the Graphical User Interface (GUI) team, we develop all Human-Machine Interfaces (HMI) for the vehicle—ranging from a passenger web app on an in-cabin tablet to a physical Streamdeck interface for controlling ROS nodes.
 
 <div align="center">
-  <img src="../../asset/artemis.jpg" width="70%" alt="artemis">
+  <img src="../../asset/autoronto/artemis.jpg" width="70%" alt="artemis">
   <p>Artemis: our self-driving car. Source: aUToronto</p>
 </div>
 
@@ -66,7 +66,7 @@ Prior to our sub-team's work, engineers relied on RViz and command-line tools, r
 ## Key Implementations
 
 <div align="center">
-  <img src="../../asset/Block Diagram.png" width=full alt="GUI System Architecture">
+  <img src="../../asset/autoronto/Block Diagram.png" width=full alt="GUI System Architecture">
   <p>GUI System Architecture Diagram. Source: aUToronto</p>
 </div>
 
@@ -280,8 +280,8 @@ We built a dual-panel web application running on an in-cabin tablet to monitor v
 <div class="ipad-frame">
 <div class="ipad-screen">
 <div class="ipad-screen-imgs">
-<div class="itab-cell-3d"><img class="itab-img-3d" src="../../asset/3d_map_view.jpeg" alt="3D Map View"></div>
-<div class="itab-cell-2d"><img class="itab-img-2d" src="../../asset/2d_map_view.jpeg" alt="2D Dashboard View"></div>
+<div class="itab-cell-3d"><img class="itab-img-3d" src="../../asset/autoronto/3d_map_view.jpeg" alt="3D Map View"></div>
+<div class="itab-cell-2d"><img class="itab-img-2d" src="../../asset/autoronto/2d_map_view.jpeg" alt="2D Dashboard View"></div>
 </div>
 <label for="itab-3d" class="ipad-overlay" style="left:0;top:0;width:26%;height:100%;z-index:1;">
 <span class="ipad-overlay-text">3D Map</span>
@@ -307,11 +307,11 @@ We built a dual-panel web application running on an in-cabin tablet to monitor v
 <p>We added detected objects created with Blender and a custom Three.js plugin.</p>
 <div class="ipad-img-row">
 <div>
-<img src="../../asset/glb_model.png" alt="glb models">
+<img src="../../asset/autoronto/glb_model.png" alt="glb models">
 <p>Car, pedestrian, deer, stop sign (.glb). Source: aUToronto</p>
 </div>
 <div>
-<img src="../../asset/threejs_model.png" alt="three.js models">
+<img src="../../asset/autoronto/threejs_model.png" alt="three.js models">
 <p>Cone, barrel, traffic light (Three.js). Source: aUToronto</p>
 </div>
 </div>
@@ -332,21 +332,21 @@ We built a dual-panel web application running on an in-cabin tablet to monitor v
 <p>A real-time monitor displaying sensor states (<strong>Healthy</strong>, <strong>Degraded</strong>, <strong>Takeover</strong>), current draw, message frequency, and topic latency.</p>
 <div class="ipad-img-row">
 <div>
-<img src="../../asset/gui_health_monitor_healthy.png" alt="Healthy">
+<img src="../../asset/autoronto/gui_health_monitor_healthy.png" alt="Healthy">
 <p>Healthy</p>
 </div>
 <div>
-<img src="../../asset/gui_health_monitor_degraded.png" alt="Degraded">
+<img src="../../asset/autoronto/gui_health_monitor_degraded.png" alt="Degraded">
 <p>Degraded</p>
 </div>
 <div>
-<img src="../../asset/gui_health_monitor_takeover.png" alt="Takeover">
+<img src="../../asset/autoronto/gui_health_monitor_takeover.png" alt="Takeover">
 <p>Takeover</p>
 </div>
 </div>
 <p>When operating autonomously, the indicator shows solid blue lights. If a critical sensor fails, autonomy automatically disengages (flashing blue lights).</p>
 <video width="100%" autoplay loop muted playsinline controls style="border-radius:8px;margin-top:8px;display:block;">
-<source src="../../asset/GUI_autonomy_kickout_demo.mov" type="video/mp4">
+<source src="../../asset/autoronto/GUI_autonomy_kickout_demo.mov" type="video/mp4">
 </video>
 <p class="ipad-caption">*Health Monitor co-developed with the System Safety Team.</p>
 </div>
@@ -365,7 +365,7 @@ We built a dual-panel web application running on an in-cabin tablet to monitor v
 
 To satisfy HMI challenge requirements and allow quick intervention, we mapped physical Streamdeck buttons to start and stop key ROS nodes directly without terminal interaction.
 
-<img src="../../asset/streamdeck.JPG" width="500" alt="streamdeck">
+<img src="../../asset/autoronto/streamdeck.JPG" width="500" alt="streamdeck">
 Streamdeck used for HMI. Source: aUToronto
 
 _\*Streamdeck software was developed by our team principal Chad and former GUI lead William._
@@ -380,5 +380,5 @@ _\*Streamdeck software was developed by our team principal Chad and former GUI l
 - **Cause:** The visualizer was attempting to process and re-render incoming high-frequency OSMs and spatial coordinate updates directly on every message arrival, causing GPU/CPU contention on the tablet without any buffer or cache.
 - **Solution:** I implemented a point queue buffer to decouple incoming ROSBridge data ingestion from the Three.js render loop. This allowed the scene to batch coordinate updates and render predictably according to the screen refresh cycle rather than thrashing on every raw data packet.
 
-<img src="../../asset/GUI_requirement_testing_result.png" alt="GUI Requirement Testing Result">
+<img src="../../asset/autoronto/GUI_requirement_testing_result.png" alt="GUI Requirement Testing Result">
 Numerical Result of Year 4 vs Year 5 Requirement Testing. Source: aUToronto
